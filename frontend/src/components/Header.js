@@ -12,15 +12,45 @@ const Header = () => {
   const legalRef = useRef(null);
 
   useEffect(() => {
+    let lastScrollY = window.scrollY;
     let ticking = false;
+    let rafId = null;
+    const SCROLL_THRESHOLD = 100; // Увеличиваем порог для более плавного срабатывания
+    const SCROLL_DEADZONE = 20; // Зона "мертвой точки" для предотвращения дерганий
 
     const handleScroll = () => {
+      const currentScrollY = window.scrollY;
+      const scrollDelta = Math.abs(currentScrollY - lastScrollY);
+      
+      // Пропускаем обработку при очень маленьких изменениях
+      if (scrollDelta < 2 && ticking) {
+        return;
+      }
+      
       if (!ticking) {
-        window.requestAnimationFrame(() => {
-          setIsScrolled(window.scrollY > 50);
+        ticking = true;
+        rafId = window.requestAnimationFrame(() => {
+          // Используем более умную логику с зоной нечувствительности
+          let scrolled;
+          if (currentScrollY > SCROLL_THRESHOLD + SCROLL_DEADZONE) {
+            scrolled = true;
+          } else if (currentScrollY < SCROLL_THRESHOLD - SCROLL_DEADZONE) {
+            scrolled = false;
+          } else {
+            // В зоне нечувствительности сохраняем текущее состояние
+            scrolled = lastScrollY > SCROLL_THRESHOLD;
+          }
+          
+          setIsScrolled(prevScrolled => {
+            // Обновляем только если состояние действительно изменилось
+            if (prevScrolled !== scrolled) {
+              return scrolled;
+            }
+            return prevScrolled;
+          });
+          lastScrollY = currentScrollY;
           ticking = false;
         });
-        ticking = true;
       }
     };
 
@@ -48,6 +78,9 @@ const Header = () => {
     return () => {
       window.removeEventListener('scroll', handleScroll);
       window.removeEventListener('resize', updateSubmenuPosition);
+      if (rafId) {
+        cancelAnimationFrame(rafId);
+      }
     };
   }, [activeSubmenu]);
 
