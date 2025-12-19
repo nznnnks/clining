@@ -1,0 +1,129 @@
+.packages {
+  background-color: var(--bg-secondary);
+}
+
+.packages__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 30px;
+  margin-top: 40px;
+}
+
+.packages__card {
+  background-color: var(--bg-primary);
+  border-radius: 25px;
+  padding: 30px;
+  border: 2px solid var(--border-color);
+  transition: all 0.3s ease;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+.packages__card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 12px 24px var(--shadow);
+  border-color: var(--accent-primary);
+}
+
+.packages__card--popular {
+  border-color: var(--accent-primary);
+  background: linear-gradient(135deg, var(--bg-primary) 0%, var(--bg-secondary) 100%);
+}
+
+.packages__badge {
+  position: absolute;
+  top: -15px;
+  right: 20px;
+  background-color: var(--accent-primary);
+  color: var(--text-primary);
+  padding: 5px 15px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.packages__header {
+  text-align: center;
+  margin-bottom: 30px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.packages__header h3 {
+  font-size: 1.8rem;
+  margin-bottom: 15px;
+  color: var(--text-primary);
+}
+
+.packages__price {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--accent-primary);
+  margin-bottom: 10px;
+}
+
+.packages__description {
+  color: var(--text-secondary);
+  font-size: 0.95rem;
+  margin: 0 0 15px 0;
+}
+
+.packages__info {
+  display: flex;
+  gap: 20px;
+  margin-top: 15px;
+  padding-top: 15px;
+  border-top: 1px solid var(--border-color);
+}
+
+.packages__infoItem {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+}
+
+.packages__infoIcon {
+  font-size: 1.1rem;
+}
+
+.packages__features {
+  list-style: none;
+  flex: 1;
+  margin-bottom: 30px;
+}
+
+.packages__features li {
+  padding: 12px 0;
+  color: var(--text-primary);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.packages__features li:last-child {
+  border-bottom: none;
+}
+
+.packages__check {
+  color: var(--accent-secondary);
+  font-weight: 700;
+  font-size: 1.2rem;
+  flex-shrink: 0;
+}
+
+.packages__button {
+  width: 100%;
+  text-align: center;
+  margin-top: auto;
+}
+
+@media (max-width: 768px) {
+  .packages__grid {
+    grid-template-columns: 1fr;
+  }
+}
+

@@ -1,0 +1,201 @@
+.windows-page {
+  min-height: 100vh;
+  background-color: var(--bg-primary);
+}
+
+.windows-page__hero {
+  padding: 40px 0;
+  background-color: var(--bg-primary);
+}
+
+.windows-page__header {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 50px;
+  align-items: start;
+}
+
+.windows-page__left {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+
+.windows-page__title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 0;
+  line-height: 1.2;
+}
+
+.windows-page__promo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 20px;
+  background-color: var(--bg-secondary);
+  border-radius: 25px;
+  border: 1px solid var(--border-color);
+}
+
+.windows-page__promoIcon {
+  font-size: 20px;
+}
+
+.windows-page__promoText {
+  color: var(--text-primary);
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.windows-page__achievements {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.windows-page__achievement {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--text-secondary);
+  font-size: 15px;
+}
+
+.windows-page__check {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  background-color: var(--accent-success);
+  color: var(--text-primary);
+  border-radius: 50%;
+  font-size: 14px;
+  font-weight: bold;
+  flex-shrink: 0;
+}
+
+.windows-page__buttons {
+  display: flex;
+  gap: 15px;
+  flex-wrap: wrap;
+}
+
+.windows-page__btn {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 28px;
+  border-radius: 30px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  border: none;
+  cursor: pointer;
+}
+
+.windows-page__btn_wa {
+  background-color: #25d366;
+  color: var(--text-primary);
+}
+
+.windows-page__btn_wa:hover {
+  background-color: #20ba5a;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(37, 211, 102, 0.4);
+}
+
+.windows-page__btn_tg {
+  background-color: #0088cc;
+  color: var(--text-primary);
+}
+
+.windows-page__btn_tg:hover {
+  background-color: #0077b3;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 136, 204, 0.4);
+}
+
+.windows-page__btnIcon {
+  font-size: 20px;
+}
+
+.windows-page__right {
+  position: relative;
+}
+
+.windows-page__imageWrapper {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16/9;
+  background: linear-gradient(135deg, var(--bg-secondary), var(--bg-tertiary));
+  border-radius: 20px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.windows-page__playButton {
+  width: 80px;
+  height: 80px;
+  background: linear-gradient(135deg, var(--accent-primary), #ff8c5a);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-primary);
+  font-size: 30px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 20px rgba(255, 107, 53, 0.4);
+}
+
+.windows-page__playButton:hover {
+  transform: scale(1.1);
+  box-shadow: 0 6px 30px rgba(255, 107, 53, 0.6);
+}
+
+.windows-page__playButton::before {
+  content: '';
+  width: 0;
+  height: 0;
+  border-left: 25px solid var(--text-primary);
+  border-top: 15px solid transparent;
+  border-bottom: 15px solid transparent;
+  margin-left: 5px;
+}
+
+.windows-page__content {
+  padding: 40px 0;
+  background-color: var(--bg-primary);
+}
+
+.windows-page__description {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.windows-page__description p {
+  color: var(--text-secondary);
+  font-size: 16px;
+  line-height: 1.8;
+  margin: 0 0 20px 0;
+}
+
+@media (max-width: 768px) {
+  .windows-page__header {
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+
+  .windows-page__title {
+    font-size: 1.8rem;
+  }
+}
+

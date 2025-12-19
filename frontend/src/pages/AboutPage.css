@@ -1,0 +1,18 @@
+.about-page {
+  min-height: 100vh;
+  background-color: var(--bg-primary);
+}
+
+.about-page__hero {
+  padding: 40px 0;
+  background-color: var(--bg-primary);
+  text-align: center;
+}
+
+.about-page__title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 0;
+}
+

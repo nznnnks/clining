@@ -1,0 +1,24 @@
+.prices-page {
+  min-height: 100vh;
+  background-color: var(--bg-primary);
+}
+
+.prices-page__hero {
+  padding: 40px 0;
+  background-color: var(--bg-primary);
+  text-align: center;
+}
+
+.prices-page__title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 0 0 10px 0;
+}
+
+.prices-page__subtitle {
+  font-size: 1.2rem;
+  color: var(--text-secondary);
+  margin: 0;
+}
+

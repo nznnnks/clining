@@ -1,0 +1,88 @@
+.work-steps {
+  background-color: var(--bg-primary);
+}
+
+.work-steps__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 30px;
+  margin-top: 40px;
+}
+
+.work-steps__card {
+  background-color: var(--bg-secondary);
+  border-radius: 25px;
+  padding: 40px 30px;
+  text-align: center;
+  border: 2px solid var(--border-color);
+  transition: all 0.3s ease;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.work-steps__card:hover {
+  transform: translateY(-10px);
+  border-color: var(--accent-primary);
+  box-shadow: 0 12px 24px var(--shadow);
+}
+
+.work-steps__number {
+  position: absolute;
+  top: -25px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: var(--accent-primary);
+  color: var(--text-primary);
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 1.2rem;
+  border: 4px solid var(--bg-primary);
+  box-shadow: 0 4px 8px var(--shadow);
+}
+
+.work-steps__icon {
+  font-size: 60px;
+  margin: 20px 0 20px 0;
+}
+
+.work-steps__title {
+  font-size: 1.5rem;
+  margin-bottom: 15px;
+  color: var(--text-primary);
+  font-weight: 700;
+}
+
+.work-steps__description {
+  color: var(--text-secondary);
+  line-height: 1.6;
+  margin: 0 0 20px 0;
+  font-size: 1rem;
+}
+
+.work-steps__button {
+  margin-top: auto;
+  width: 100%;
+  max-width: 200px;
+}
+
+@media (max-width: 768px) {
+  .work-steps__stepContent {
+    padding: 25px 20px;
+  }
+
+  .work-steps__icon {
+    font-size: 40px;
+  }
+
+  .work-steps__title {
+    font-size: 1.3rem;
+  }
+}
+
