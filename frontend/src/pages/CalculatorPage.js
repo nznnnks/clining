@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import Breadcrumbs from '../components/Breadcrumbs';
 import ReviewsRatings from '../components/ReviewsRatings';
 import './CalculatorPage.css';
@@ -35,24 +35,51 @@ const CalculatorPage = () => {
   ];
 
   const currentCleaningType = cleaningTypes.find(t => t.id === cleaningType);
-  const basePrice = area * currentCleaningType.price;
   
-  const additionalPrice = Object.keys(additionalServices).reduce((sum, key) => {
-    const service = additionalServicesList.find(s => s.id === key);
-    if (service && additionalServices[key] > 0) {
-      return sum + (service.price * additionalServices[key]);
-    }
-    return sum;
-  }, 0);
+  // Используем useMemo для расчета цен, чтобы они пересчитывались только при изменении зависимостей
+  const basePrice = useMemo(() => {
+    return area * currentCleaningType.price;
+  }, [area, currentCleaningType]);
+  
+  const additionalPrice = useMemo(() => {
+    return Object.keys(additionalServices).reduce((sum, key) => {
+      const service = additionalServicesList.find(s => s.id === key);
+      const count = additionalServices[key];
+      if (service && count && count > 0) {
+        return sum + (service.price * count);
+      }
+      return sum;
+    }, 0);
+  }, [additionalServices]);
 
-  const totalPrice = basePrice + additionalPrice;
-  const minPrice = Math.max(4000, totalPrice);
+  // Применяем минимальную цену 4000 только к базовой цене
+  // Дополнительные услуги добавляются сверху
+  const adjustedBasePrice = useMemo(() => {
+    return basePrice < 4000 ? 4000 : basePrice;
+  }, [basePrice]);
+  
+  // Рассчитываем итоговую цену: скорректированная базовая цена + дополнительные услуги
+  const finalPrice = useMemo(() => {
+    return adjustedBasePrice + additionalPrice;
+  }, [adjustedBasePrice, additionalPrice]);
 
-  const handleServiceChange = (serviceId, value) => {
-    setAdditionalServices(prev => ({
-      ...prev,
-      [serviceId]: Math.max(0, parseInt(value) || 0)
-    }));
+  const handleServiceChange = (serviceId, delta) => {
+    setAdditionalServices(prev => {
+      const currentCount = prev[serviceId] || 0;
+      const newCount = Math.max(0, currentCount + delta);
+      
+      // Если значение стало 0, удаляем ключ из объекта
+      if (newCount === 0) {
+        const updated = { ...prev };
+        delete updated[serviceId];
+        return updated;
+      }
+      
+      return {
+        ...prev,
+        [serviceId]: newCount
+      };
+    });
   };
 
   const handleSubmit = (e) => {
@@ -138,14 +165,14 @@ const CalculatorPage = () => {
                       <div className="calculator-page__serviceControl">
                         <button
                           className="calculator-page__controlButton"
-                          onClick={() => handleServiceChange(service.id, (additionalServices[service.id] || 0) - 1)}
+                          onClick={() => handleServiceChange(service.id, -1)}
                         >
                           −
                         </button>
                         <span className="calculator-page__serviceCount">{additionalServices[service.id] || 0}</span>
                         <button
                           className="calculator-page__controlButton"
-                          onClick={() => handleServiceChange(service.id, (additionalServices[service.id] || 0) + 1)}
+                          onClick={() => handleServiceChange(service.id, 1)}
                         >
                           +
                         </button>
@@ -165,7 +192,7 @@ const CalculatorPage = () => {
                 </div>
                 <div className="calculator-page__orderPrice">
                   <div className="calculator-page__orderPriceLabel">Ориентировочная стоимость ОТ:</div>
-                  <div className="calculator-page__orderPriceValue">{minPrice.toLocaleString()} ₽</div>
+                  <div className="calculator-page__orderPriceValue">{finalPrice.toLocaleString()} ₽</div>
                 </div>
                 <form className="calculator-page__orderForm" onSubmit={handleSubmit}>
                   <input
