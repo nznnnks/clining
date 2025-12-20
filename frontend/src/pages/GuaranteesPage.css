@@ -1,0 +1,140 @@
+.guarantees-page {
+  background-color: var(--bg-primary);
+  min-height: 100vh;
+}
+
+.guarantees-page__hero {
+  padding: 40px 0;
+  background-color: var(--bg-secondary);
+}
+
+.guarantees-page__title {
+  font-size: 3rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 0;
+}
+
+.guarantees-page__content {
+  padding: 60px 0;
+}
+
+.guarantees-page__subtitle {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 0 0 20px 0;
+}
+
+.guarantees-page__paragraph {
+  font-size: 1.1rem;
+  color: var(--text-secondary);
+  line-height: 1.8;
+  margin: 0 0 40px 0;
+}
+
+.guarantees-page__sectionTitle {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 0 0 30px 0;
+}
+
+.guarantees-page__guarantees {
+  margin-bottom: 60px;
+}
+
+.guarantees-page__guaranteeList {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.guarantees-page__guarantee {
+  display: flex;
+  gap: 30px;
+  align-items: flex-start;
+  background-color: var(--bg-secondary);
+  border-radius: 25px;
+  padding: 30px;
+  border: 1px solid var(--border-color);
+  transition: all 0.3s ease;
+}
+
+.guarantees-page__guarantee:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px var(--shadow);
+  border-color: var(--accent-primary);
+}
+
+.guarantees-page__guaranteeNumber {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--accent-primary);
+  flex-shrink: 0;
+  width: 50px;
+}
+
+.guarantees-page__guaranteeContent {
+  flex: 1;
+}
+
+.guarantees-page__guaranteeTitle {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 0 0 15px 0;
+}
+
+.guarantees-page__guaranteeText {
+  font-size: 1.1rem;
+  color: var(--text-secondary);
+  line-height: 1.8;
+  margin: 0;
+}
+
+.guarantees-page__trust {
+  margin-bottom: 60px;
+}
+
+.guarantees-page__trustList {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.guarantees-page__trustItem {
+  background-color: var(--bg-secondary);
+  border-radius: 25px;
+  padding: 30px;
+  border: 1px solid var(--border-color);
+  transition: all 0.3s ease;
+}
+
+.guarantees-page__trustItem:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px var(--shadow);
+  border-color: var(--accent-primary);
+}
+
+.guarantees-page__trustTitle {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--accent-primary);
+  margin: 0 0 15px 0;
+}
+
+.guarantees-page__trustText {
+  font-size: 1.1rem;
+  color: var(--text-secondary);
+  line-height: 1.8;
+  margin: 0;
+}
+
+@media (max-width: 768px) {
+  .guarantees-page__guarantee {
+    flex-direction: column;
+    gap: 20px;
+  }
+}
+

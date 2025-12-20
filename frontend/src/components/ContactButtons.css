@@ -50,7 +50,8 @@
   align-items: center;
   gap: 15px;
   box-shadow: 0 4px 12px var(--shadow);
-  max-width: 350px;
+  max-width: 450px;
+  min-width: 350px;
 }
 
 .contact-buttons__managerAvatar {

@@ -38,6 +38,11 @@ const ServicePage = () => {
     }
   }, [category]);
 
+  // Прокрутка вверх при переходе на страницу услуги
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }, [category, service]);
+
   // Функция для получения названия услуги по ключу
   const getServiceName = (key) => {
     const names = {
@@ -68,6 +73,11 @@ const ServicePage = () => {
       'four-room': 'Уборка четырёхкомнатной квартиры',
       'elite': 'Уборка элитных квартир',
       'disinfection': 'Дезинфекция квартиры',
+      // Уборка домов
+      'cottage': 'Уборка коттеджей',
+      'two-story': 'Уборка двухэтажного дома',
+      'townhouse': 'Уборка таунхауса',
+      'dacha': 'Уборка дачи',
       // Дополнительные услуги
       'kitchen': 'Уборка кухни',
       'bathroom': 'Клининг санузла',
@@ -654,6 +664,9 @@ const ServicePage = () => {
     } else if (category === 'dry-cleaning') {
       fullTitle = `${serviceName} на дому`;
       pageTitle = `${serviceName} по выгодной цене`;
+    } else if (category === 'house') {
+      fullTitle = `${serviceName} в Москве`;
+      pageTitle = `${serviceName} в Москве по выгодной цене`;
     } else {
       fullTitle = `${serviceName} квартиры в Москве`;
       pageTitle = `${serviceName} квартиры в Москве по выгодной цене`;

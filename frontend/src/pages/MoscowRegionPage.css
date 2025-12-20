@@ -1,0 +1,51 @@
+.moscow-region-page {
+  background-color: var(--bg-primary);
+  min-height: 100vh;
+}
+
+.moscow-region-page__hero {
+  padding: 40px 0;
+  background-color: var(--bg-secondary);
+}
+
+.moscow-region-page__title {
+  font-size: 3rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 0;
+}
+
+.moscow-region-page__content {
+  padding: 60px 0;
+}
+
+.moscow-region-page__subtitle {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 0 0 30px 0;
+}
+
+.moscow-region-page__cities {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 15px;
+}
+
+.moscow-region-page__city {
+  padding: 15px 20px;
+  background-color: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: 20px;
+  color: var(--text-primary);
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-align: center;
+}
+
+.moscow-region-page__city:hover {
+  border-color: var(--accent-primary);
+  background-color: var(--bg-tertiary);
+}
+

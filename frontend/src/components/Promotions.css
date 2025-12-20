@@ -85,7 +85,7 @@
 }
 
 .promotions__card {
-  background: linear-gradient(135deg, var(--bg-secondary), var(--bg-tertiary));
+  background-color: var(--bg-secondary);
   border-radius: 25px;
   padding: 30px;
   border: 1px solid var(--border-color);

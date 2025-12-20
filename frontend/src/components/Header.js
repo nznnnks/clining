@@ -10,78 +10,92 @@ const Header = () => {
   const [submenuPosition, setSubmenuPosition] = useState({ top: 0, left: 0, width: 0 });
   const individualsRef = useRef(null);
   const legalRef = useRef(null);
+  const infoRef = useRef(null);
 
   useEffect(() => {
     let lastScrollY = window.scrollY;
+    let lastScrolledState = false;
     let ticking = false;
     let rafId = null;
-    const SCROLL_THRESHOLD = 100; // Увеличиваем порог для более плавного срабатывания
-    const SCROLL_DEADZONE = 20; // Зона "мертвой точки" для предотвращения дерганий
+    const SCROLL_THRESHOLD = 120;
+    const SCROLL_DEADZONE = 50; // Увеличиваем зону нечувствительности для предотвращения тряски
+    const MIN_SCROLL_DELTA = 8; // Увеличиваем минимальное изменение для обработки
 
     const handleScroll = () => {
       const currentScrollY = window.scrollY;
       const scrollDelta = Math.abs(currentScrollY - lastScrollY);
       
       // Пропускаем обработку при очень маленьких изменениях
-      if (scrollDelta < 2 && ticking) {
+      if (scrollDelta < MIN_SCROLL_DELTA && ticking) {
         return;
       }
       
       if (!ticking) {
         ticking = true;
         rafId = window.requestAnimationFrame(() => {
-          // Используем более умную логику с зоной нечувствительности
+          // Используем более умную логику с расширенной зоной нечувствительности
           let scrolled;
           if (currentScrollY > SCROLL_THRESHOLD + SCROLL_DEADZONE) {
             scrolled = true;
           } else if (currentScrollY < SCROLL_THRESHOLD - SCROLL_DEADZONE) {
             scrolled = false;
           } else {
-            // В зоне нечувствительности сохраняем текущее состояние
-            scrolled = lastScrollY > SCROLL_THRESHOLD;
+            // В зоне нечувствительности сохраняем последнее известное состояние
+            scrolled = lastScrolledState;
           }
           
-          setIsScrolled(prevScrolled => {
-            // Обновляем только если состояние действительно изменилось
-            if (prevScrolled !== scrolled) {
-              return scrolled;
-            }
-            return prevScrolled;
-          });
+          // Обновляем только если состояние действительно изменилось
+          if (scrolled !== lastScrolledState) {
+            setIsScrolled(scrolled);
+            lastScrolledState = scrolled;
+          }
+          
           lastScrollY = currentScrollY;
           ticking = false;
         });
       }
     };
 
-    const updateSubmenuPosition = () => {
-      if (activeSubmenu) {
-        const headerBottom = document.querySelector('.header__bottom');
-        if (headerBottom) {
-          const headerRect = headerBottom.getBoundingClientRect();
-          setSubmenuPosition({
-            top: headerRect.bottom,
-            left: 0,
-            width: window.innerWidth
-          });
-        }
-      }
-    };
+          const updateSubmenuPosition = () => {
+            if (activeSubmenu) {
+              const headerBottom = document.querySelector('.header__bottom');
+              if (headerBottom) {
+                const headerRect = headerBottom.getBoundingClientRect();
+                setSubmenuPosition({
+                  top: headerRect.bottom,
+                  left: 0,
+                  width: window.innerWidth
+                });
+              }
+            }
+          };
 
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    window.addEventListener('resize', updateSubmenuPosition, { passive: true });
-    
-    if (activeSubmenu) {
-      updateSubmenuPosition();
-    }
-    
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-      window.removeEventListener('resize', updateSubmenuPosition);
-      if (rafId) {
-        cancelAnimationFrame(rafId);
-      }
-    };
+          // Закрываем меню при клике вне его
+          const handleClickOutside = (e) => {
+            if (activeSubmenu && 
+                !e.target.closest('.menu-item-has-children') && 
+                !e.target.closest('.sub-menu') &&
+                !e.target.closest('.sub-menu--info__close')) {
+              setActiveSubmenu(null);
+            }
+          };
+
+          window.addEventListener('scroll', handleScroll, { passive: true });
+          window.addEventListener('resize', updateSubmenuPosition, { passive: true });
+          document.addEventListener('click', handleClickOutside);
+          
+          if (activeSubmenu) {
+            updateSubmenuPosition();
+          }
+          
+          return () => {
+            window.removeEventListener('scroll', handleScroll);
+            window.removeEventListener('resize', updateSubmenuPosition);
+            document.removeEventListener('click', handleClickOutside);
+            if (rafId) {
+              cancelAnimationFrame(rafId);
+            }
+          };
   }, [activeSubmenu]);
 
   const toggleMenu = () => {
@@ -304,7 +318,7 @@ const Header = () => {
                   Услуги юрлицам
                 </a>
                 {activeSubmenu === 'legal' && ReactDOM.createPortal(
-                  <div 
+                  <div
                     className="sub-menu sub-menu--wide visible"
                     style={{
                       top: `${submenuPosition.top}px`,
@@ -313,47 +327,104 @@ const Header = () => {
                     }}
                     onMouseLeave={() => setActiveSubmenu(null)}
                   >
-                  <div className="sub-menu__column">
-                    <h4 className="sub-menu__title">Уборка офисов</h4>
-                    <ul>
-                      <li><Link to="/services/office/general" onClick={() => setActiveSubmenu(null)}>Генеральная</Link></li>
-                      <li><Link to="/services/office/daily" onClick={() => setActiveSubmenu(null)}>Ежедневная</Link></li>
-                      <li><Link to="/services/office/weekly" onClick={() => setActiveSubmenu(null)}>Еженедельная</Link></li>
-                      <li><Link to="/services/office/after-renovation" onClick={() => setActiveSubmenu(null)}>После ремонта</Link></li>
-                      <li><Link to="/services/office/window" onClick={() => setActiveSubmenu(null)}>Мойка окон</Link></li>
-                    </ul>
-                  </div>
-                  <div className="sub-menu__column">
-                    <h4 className="sub-menu__title">Клининг для бизнеса</h4>
-                    <ul>
-                      <li><Link to="/services/business/restaurant" onClick={() => setActiveSubmenu(null)}>Ресторанов</Link></li>
-                      <li><Link to="/services/business/shop" onClick={() => setActiveSubmenu(null)}>Магазинов</Link></li>
-                      <li><Link to="/services/business/warehouse" onClick={() => setActiveSubmenu(null)}>Складов</Link></li>
-                      <li><Link to="/services/business/medical" onClick={() => setActiveSubmenu(null)}>Медицинских учреждений</Link></li>
-                    </ul>
-                  </div>
+                    <div className="sub-menu__column">
+                      <h4 className="sub-menu__title">Уборка офисов</h4>
+                      <ul>
+                        <li><Link to="/services/office/general" onClick={() => setActiveSubmenu(null)}>Генеральная</Link></li>
+                        <li><Link to="/services/office/daily" onClick={() => setActiveSubmenu(null)}>Ежедневная</Link></li>
+                        <li><Link to="/services/office/weekly" onClick={() => setActiveSubmenu(null)}>Еженедельная</Link></li>
+                        <li><Link to="/services/office/after-renovation" onClick={() => setActiveSubmenu(null)}>После ремонта</Link></li>
+                        <li><Link to="/services/office/window" onClick={() => setActiveSubmenu(null)}>Мойка окон</Link></li>
+                      </ul>
+                    </div>
+                    <div className="sub-menu__column">
+                      <h4 className="sub-menu__title">Клининг для бизнеса</h4>
+                      <ul>
+                        <li><Link to="/services/business/restaurant" onClick={() => setActiveSubmenu(null)}>Ресторанов</Link></li>
+                        <li><Link to="/services/business/shop" onClick={() => setActiveSubmenu(null)}>Магазинов</Link></li>
+                        <li><Link to="/services/business/warehouse" onClick={() => setActiveSubmenu(null)}>Складов</Link></li>
+                        <li><Link to="/services/business/medical" onClick={() => setActiveSubmenu(null)}>Медицинских учреждений</Link></li>
+                      </ul>
+                    </div>
                   </div>,
                   document.body
                 )}
               </li>
               <li>
-                <Link to="/windows" onClick={() => setIsMenuOpen(false)}>Мытье окон</Link>
+                <Link to="/windows" onClick={() => { setIsMenuOpen(false); setActiveSubmenu(null); }}>Мытье окон</Link>
               </li>
               <li>
-                <Link to="/prices" onClick={() => setIsMenuOpen(false)}>Цены</Link>
+                <Link to="/prices" onClick={() => { setIsMenuOpen(false); setActiveSubmenu(null); }}>Цены</Link>
               </li>
               <li>
-                <Link to="/portfolio" onClick={() => setIsMenuOpen(false)}>Наши работы</Link>
+                <Link to="/portfolio" onClick={() => { setIsMenuOpen(false); setActiveSubmenu(null); }}>Наши работы</Link>
               </li>
               <li>
-                <Link to="/promotions" onClick={() => setIsMenuOpen(false)}>Акции</Link>
+                <Link to="/promotions" onClick={() => { setIsMenuOpen(false); setActiveSubmenu(null); }}>Акции</Link>
               </li>
-              <li className="menu-item-has-children">
-                <Link to="/about" onClick={() => setIsMenuOpen(false)}>Информация</Link>
-                <ul className="sub-menu">
-                  <li><Link to="/about" onClick={() => setIsMenuOpen(false)}>О нас</Link></li>
-                  <li><Link to="/faq" onClick={() => setIsMenuOpen(false)}>FAQ</Link></li>
-                </ul>
+              <li 
+                className="menu-item-has-children menu-item--button"
+                ref={infoRef}
+              >
+                <a
+                  href="#info"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    const newState = activeSubmenu === 'info' ? null : 'info';
+                    setActiveSubmenu(newState);
+                    if (newState === 'info') {
+                      const headerBottom = document.querySelector('.header__bottom');
+                      if (headerBottom) {
+                        const headerRect = headerBottom.getBoundingClientRect();
+                        setSubmenuPosition({
+                          top: headerRect.bottom - 1,
+                          left: 0,
+                          width: window.innerWidth
+                        });
+                      }
+                    }
+                  }}
+                >
+                  Информация
+                </a>
+                {activeSubmenu === 'info' && ReactDOM.createPortal(
+                  <div
+                    className="sub-menu sub-menu--info visible"
+                    style={{
+                      top: `${submenuPosition.top}px`,
+                      left: `${submenuPosition.left}px`,
+                      width: `${submenuPosition.width}px`
+                    }}
+                  >
+                    <button 
+                      className="sub-menu--info__close"
+                      onClick={() => setActiveSubmenu(null)}
+                      aria-label="Закрыть меню"
+                    >
+                      ×
+                    </button>
+                    <div className="sub-menu--info__columns">
+                      <div className="sub-menu--info__column">
+                        <ul>
+                          <li><Link to="/reviews" onClick={() => setActiveSubmenu(null)}>Отзывы</Link></li>
+                          <li><Link to="/about" onClick={() => setActiveSubmenu(null)}>О компании</Link></li>
+                          <li><Link to="/faq" onClick={() => setActiveSubmenu(null)}>Вопросы и ответы</Link></li>
+                          <li><Link to="/guarantees" onClick={() => setActiveSubmenu(null)}>Гарантии</Link></li>
+                          <li><Link to="/sitemap" onClick={() => setActiveSubmenu(null)}>Карта сайта</Link></li>
+                        </ul>
+                      </div>
+                      <div className="sub-menu--info__column">
+                        <ul>
+                          <li><Link to="/calculator" onClick={() => setActiveSubmenu(null)}>Калькулятор</Link></li>
+                          <li><Link to="/vacancies" onClick={() => setActiveSubmenu(null)}>Вакансии</Link></li>
+                          <li><Link to="/moscow-region" onClick={() => setActiveSubmenu(null)}>Московская область</Link></li>
+                          <li><Link to="/payment-terms" onClick={() => setActiveSubmenu(null)}>Условия оплаты</Link></li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>,
+                  document.body
+                )}
               </li>
               <li>
                 <Link to="/contacts" onClick={() => setIsMenuOpen(false)}>Контакты</Link>

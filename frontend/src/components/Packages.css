@@ -28,7 +28,9 @@
 
 .packages__card--popular {
   border-color: var(--accent-primary);
-  background: linear-gradient(135deg, var(--bg-primary) 0%, var(--bg-secondary) 100%);
+  background-color: var(--bg-tertiary);
+  border-left: 3px solid var(--accent-primary);
+  border-right: 3px solid var(--accent-primary);
 }
 
 .packages__badge {
@@ -109,7 +111,7 @@
 }
 
 .packages__check {
-  color: var(--accent-secondary);
+  color: var(--accent-success);
   font-weight: 700;
   font-size: 1.2rem;
   flex-shrink: 0;
@@ -119,6 +121,19 @@
   width: 100%;
   text-align: center;
   margin-top: auto;
+  background-color: var(--accent-primary);
+}
+
+.packages__button:hover {
+  background-color: #e55a2b;
+}
+
+.packages__card--popular .packages__button {
+  background-color: var(--accent-primary);
+}
+
+.packages__card--popular .packages__button:hover {
+  background-color: #e55a2b;
 }
 
 @media (max-width: 768px) {

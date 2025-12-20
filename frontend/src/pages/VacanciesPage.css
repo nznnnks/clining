@@ -1,0 +1,76 @@
+.vacancies-page {
+  background-color: var(--bg-primary);
+  min-height: 100vh;
+}
+
+.vacancies-page__hero {
+  padding: 40px 0;
+  background-color: var(--bg-secondary);
+}
+
+.vacancies-page__title {
+  font-size: 3rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 0;
+}
+
+.vacancies-page__content {
+  padding: 60px 0;
+}
+
+.vacancies-page__subtitle {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 0 0 20px 0;
+}
+
+.vacancies-page__paragraph {
+  font-size: 1.1rem;
+  color: var(--text-secondary);
+  line-height: 1.8;
+  margin: 0 0 40px 0;
+}
+
+.vacancies-page__sectionTitle {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 0 0 30px 0;
+}
+
+.vacancies-page__benefits {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 30px;
+}
+
+.vacancies-page__benefit {
+  background-color: var(--bg-secondary);
+  border-radius: 25px;
+  padding: 30px;
+  border: 1px solid var(--border-color);
+  transition: all 0.3s ease;
+}
+
+.vacancies-page__benefit:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px var(--shadow);
+  border-color: var(--accent-primary);
+}
+
+.vacancies-page__benefitTitle {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--accent-primary);
+  margin: 0 0 15px 0;
+}
+
+.vacancies-page__benefitText {
+  font-size: 1.1rem;
+  color: var(--text-secondary);
+  line-height: 1.8;
+  margin: 0;
+}
+

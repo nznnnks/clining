@@ -12,6 +12,13 @@ import PromotionsPage from './pages/PromotionsPage';
 import AboutPage from './pages/AboutPage';
 import FAQPage from './pages/FAQPage';
 import ContactsPage from './pages/ContactsPage';
+import ReviewsPage from './pages/ReviewsPage';
+import GuaranteesPage from './pages/GuaranteesPage';
+import SitemapPage from './pages/SitemapPage';
+import CalculatorPage from './pages/CalculatorPage';
+import VacanciesPage from './pages/VacanciesPage';
+import MoscowRegionPage from './pages/MoscowRegionPage';
+import PaymentTermsPage from './pages/PaymentTermsPage';
 import './App.css';
 
 function AppContent() {
@@ -33,6 +40,13 @@ function AppContent() {
           <Route path="/about" element={<AboutPage />} />
           <Route path="/faq" element={<FAQPage />} />
           <Route path="/contacts" element={<ContactsPage />} />
+          <Route path="/reviews" element={<ReviewsPage />} />
+          <Route path="/guarantees" element={<GuaranteesPage />} />
+          <Route path="/sitemap" element={<SitemapPage />} />
+          <Route path="/calculator" element={<CalculatorPage />} />
+          <Route path="/vacancies" element={<VacanciesPage />} />
+          <Route path="/moscow-region" element={<MoscowRegionPage />} />
+          <Route path="/payment-terms" element={<PaymentTermsPage />} />
         </Routes>
       </main>
       <ContactButtons />

@@ -94,7 +94,7 @@ a:hover {
 }
 
 .btn:hover {
-  background-color: var(--accent-secondary);
+  background-color: #e55a2b;
   transform: translateY(-2px);
   box-shadow: 0 4px 12px var(--shadow);
 }
