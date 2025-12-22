@@ -1,6 +1,31 @@
 from app import db
 from datetime import datetime
 import json
+from flask_login import UserMixin
+from werkzeug.security import generate_password_hash, check_password_hash
+
+
+class User(db.Model, UserMixin):
+    """Модель пользователя для админки"""
+    __tablename__ = 'users'
+    
+    id = db.Column(db.Integer, primary_key=True)
+    username = db.Column(db.String(80), unique=True, nullable=False)
+    email = db.Column(db.String(120), unique=True, nullable=False)
+    password_hash = db.Column(db.String(255), nullable=False)
+    is_admin = db.Column(db.Boolean, default=False)
+    created_at = db.Column(db.DateTime, default=datetime.utcnow)
+    
+    def set_password(self, password):
+        """Хеширует пароль"""
+        self.password_hash = generate_password_hash(password)
+    
+    def check_password(self, password):
+        """Проверяет пароль"""
+        return check_password_hash(self.password_hash, password)
+    
+    def __repr__(self):
+        return f'<User {self.username}>'
 
 
 class PortfolioItem(db.Model):
@@ -64,3 +89,78 @@ class Promotion(db.Model):
     def __repr__(self):
         return f'<Promotion {self.id}: {self.title}>'
 
+
+class CleaningType(db.Model):
+    """Модель для типов уборки в калькуляторе"""
+    __tablename__ = 'cleaning_types'
+    
+    id = db.Column(db.String(50), primary_key=True)  # maintenance, general, after-renovation
+    label = db.Column(db.String(200), nullable=False)
+    price = db.Column(db.Integer, nullable=False)  # Цена за м²
+    order = db.Column(db.Integer, default=0)  # Порядок отображения
+    is_active = db.Column(db.Boolean, default=True)
+    created_at = db.Column(db.DateTime, default=datetime.utcnow)
+    updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+    
+    def to_dict(self):
+        """Преобразует объект в словарь для API"""
+        return {
+            'id': self.id,
+            'label': self.label,
+            'price': self.price,
+            'order': self.order,
+            'is_active': self.is_active
+        }
+    
+    def __repr__(self):
+        return f'<CleaningType {self.id}: {self.label}>'
+
+
+class AdditionalService(db.Model):
+    """Модель для дополнительных услуг в калькуляторе"""
+    __tablename__ = 'additional_services'
+    
+    id = db.Column(db.String(50), primary_key=True) 
+    label = db.Column(db.String(200), nullable=False)
+    price = db.Column(db.Integer, nullable=False)
+    unit = db.Column(db.String(50), nullable=False)
+    order = db.Column(db.Integer, default=0)
+    is_active = db.Column(db.Boolean, default=True)
+    created_at = db.Column(db.DateTime, default=datetime.utcnow)
+    updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+    
+    def to_dict(self):
+        """Преобразует объект в словарь для API"""
+        return {
+            'id': self.id,
+            'label': self.label,
+            'price': self.price,
+            'unit': self.unit,
+            'order': self.order,
+            'is_active': self.is_active
+        }
+    
+    def __repr__(self):
+        return f'<AdditionalService {self.id}: {self.label}>'
+
+
+class CalculatorSettings(db.Model):
+    """Модель для настроек калькулятора"""
+    __tablename__ = 'calculator_settings'
+    
+    id = db.Column(db.Integer, primary_key=True)
+    key = db.Column(db.String(50), unique=True, nullable=False)  # min_price, etc.
+    value = db.Column(db.String(200), nullable=False)  # Значение настройки
+    description = db.Column(db.String(200))  # Описание настройки
+    updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+    
+    def to_dict(self):
+        """Преобразует объект в словарь для API"""
+        return {
+            'key': self.key,
+            'value': self.value,
+            'description': self.description
+        }
+    
+    def __repr__(self):
+        return f'<CalculatorSettings {self.key}: {self.value}>'
