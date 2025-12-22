@@ -41,7 +41,7 @@ def init_db():
             engine = create_engine(correct_uri)
             
             # Импортируем модели, чтобы они зарегистрировались в metadata
-            from app.models import PortfolioItem, Promotion, User, CleaningType, AdditionalService, CalculatorSettings
+            from app.models import PortfolioItem, Promotion, User, CleaningType, AdditionalService, CalculatorSettings, Order
             
             # Создаем все таблицы
             db.Model.metadata.create_all(engine)
@@ -53,6 +53,7 @@ def init_db():
             print("   - cleaning_types (типы уборки)")
             print("   - additional_services (дополнительные услуги)")
             print("   - calculator_settings (настройки калькулятора)")
+            print("   - orders (заказы из калькулятора)")
         except Exception as e:
             print(f"❌ Ошибка при создании таблиц: {e}")
             import traceback

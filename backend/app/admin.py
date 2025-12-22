@@ -5,7 +5,7 @@ from flask_login import current_user
 from wtforms import PasswordField, TextAreaField
 from wtforms.validators import DataRequired
 from app import db
-from app.models import User, PortfolioItem, Promotion, CleaningType, AdditionalService, CalculatorSettings
+from app.models import User, PortfolioItem, Promotion, CleaningType, AdditionalService, CalculatorSettings, Order
 import json
 
 
@@ -320,6 +320,89 @@ class CalculatorSettingsAdminView(SecureModelView):
     can_delete = False  # Не даем удалять настройки
 
 
+class OrderAdminView(SecureModelView):
+    """Представление для управления заказами"""
+    
+    column_list = ['id', 'name', 'phone', 'area', 'cleaning_type_label', 'final_price', 'status', 'comment', 'created_at']
+    column_searchable_list = ['name', 'phone', 'comment']
+    column_filters = ['status', 'cleaning_type_id', 'created_at']
+    column_labels = {
+        'id': 'ID',
+        'name': 'Имя',
+        'phone': 'Телефон',
+        'comment': 'Комментарий',
+        'area': 'Площадь (м²)',
+        'cleaning_type_id': 'ID типа уборки',
+        'cleaning_type_label': 'Тип уборки',
+        'additional_services': 'Доп. услуги',
+        'base_price': 'Базовая цена (₽)',
+        'adjusted_base_price': 'Скоррект. базовая цена (₽)',
+        'additional_price': 'Доп. услуги (₽)',
+        'final_price': 'Итоговая цена (₽)',
+        'status': 'Статус',
+        'created_at': 'Дата создания',
+        'updated_at': 'Дата обновления'
+    }
+    
+    form_columns = ['name', 'phone', 'comment', 'area', 'cleaning_type_id', 'cleaning_type_label', 
+                    'additional_services', 'base_price', 'adjusted_base_price', 'additional_price', 
+                    'final_price', 'status']
+    
+    form_extra_fields = {
+        'comment': TextAreaField(
+            'Комментарий',
+            description='Комментарий клиента к заказу'
+        ),
+        'additional_services': TextAreaField(
+            'Дополнительные услуги (JSON)',
+            description='JSON объект с дополнительными услугами'
+        )
+    }
+    
+    column_default_sort = ('created_at', True)  # Сортировка по дате создания (новые сверху)
+    
+    can_create = False  # Заказы создаются только через калькулятор
+    can_edit = True
+    can_delete = True
+    
+    form_choices = {
+        'status': [
+            ('new', 'Новый'),
+            ('in_progress', 'В работе'),
+            ('completed', 'Завершен'),
+            ('cancelled', 'Отменен')
+        ]
+    }
+    
+    def edit_form(self, obj=None):
+        """Форма редактирования с предзаполнением JSON"""
+        form = super().edit_form(obj)
+        
+        if obj and hasattr(obj, 'additional_services') and obj.additional_services:
+            try:
+                services_dict = json.loads(obj.additional_services)
+                if isinstance(services_dict, dict):
+                    form.additional_services.data = json.dumps(services_dict, ensure_ascii=False, indent=2)
+                else:
+                    form.additional_services.data = str(obj.additional_services)
+            except (json.JSONDecodeError, TypeError, AttributeError):
+                form.additional_services.data = str(obj.additional_services) if obj.additional_services else ''
+        else:
+            form.additional_services.data = ''
+        
+        return form
+    
+    def on_model_change(self, form, model, is_created):
+        """Обработка изменения модели - валидация JSON"""
+        if hasattr(form, 'additional_services') and form.additional_services.data:
+            try:
+                # Валидируем JSON
+                json.loads(form.additional_services.data)
+            except json.JSONDecodeError as e:
+                flash(f'Неверный формат JSON в поле "Дополнительные услуги": {str(e)}', 'error')
+                return False
+
+
 def init_admin(app):
     """Инициализация Flask-Admin"""
     admin = Admin(
@@ -341,6 +424,9 @@ def init_admin(app):
     admin.add_view(CleaningTypeAdminView(CleaningType, db.session, name='Типы уборки', endpoint='admin_cleaning_types', category='Калькулятор'))
     admin.add_view(AdditionalServiceAdminView(AdditionalService, db.session, name='Доп. услуги', endpoint='admin_additional_services', category='Калькулятор'))
     admin.add_view(CalculatorSettingsAdminView(CalculatorSettings, db.session, name='Настройки', endpoint='admin_calculator_settings', category='Калькулятор'))
+    
+    # Регистрация модели заказов
+    admin.add_view(OrderAdminView(Order, db.session, name='Заказы', endpoint='admin_orders'))
     
     return admin
 

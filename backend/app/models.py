@@ -164,3 +164,47 @@ class CalculatorSettings(db.Model):
     
     def __repr__(self):
         return f'<CalculatorSettings {self.key}: {self.value}>'
+
+
+class Order(db.Model):
+    """Модель для заказов из калькулятора"""
+    __tablename__ = 'orders'
+    
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(200))  # Имя клиента
+    phone = db.Column(db.String(50), nullable=False)  # Телефон (обязательное поле)
+    comment = db.Column(db.Text)  # Комментарий к заказу
+    area = db.Column(db.Integer, nullable=False)  # Площадь помещения в м²
+    cleaning_type_id = db.Column(db.String(50), nullable=False)  # ID типа уборки
+    cleaning_type_label = db.Column(db.String(200))  # Название типа уборки (для истории)
+    additional_services = db.Column(db.Text)  # JSON строка с дополнительными услугами
+    base_price = db.Column(db.Integer, nullable=False)  # Базовая цена (до применения минимума)
+    adjusted_base_price = db.Column(db.Integer, nullable=False)  # Скорректированная базовая цена (с учетом минимума)
+    additional_price = db.Column(db.Integer, default=0)  # Цена дополнительных услуг
+    final_price = db.Column(db.Integer, nullable=False)  # Итоговая цена
+    status = db.Column(db.String(50), default='new')  # Статус заказа: new, in_progress, completed, cancelled
+    created_at = db.Column(db.DateTime, default=datetime.utcnow)
+    updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+    
+    def to_dict(self):
+        """Преобразует объект в словарь для API"""
+        return {
+            'id': self.id,
+            'name': self.name,
+            'phone': self.phone,
+            'comment': self.comment,
+            'area': self.area,
+            'cleaning_type_id': self.cleaning_type_id,
+            'cleaning_type_label': self.cleaning_type_label,
+            'additional_services': json.loads(self.additional_services) if self.additional_services else {},
+            'base_price': self.base_price,
+            'adjusted_base_price': self.adjusted_base_price,
+            'additional_price': self.additional_price,
+            'final_price': self.final_price,
+            'status': self.status,
+            'created_at': self.created_at.isoformat() if self.created_at else None,
+            'updated_at': self.updated_at.isoformat() if self.updated_at else None
+        }
+    
+    def __repr__(self):
+        return f'<Order {self.id}: {self.phone} - {self.final_price} ₽>'
