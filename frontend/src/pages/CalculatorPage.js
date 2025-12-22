@@ -105,7 +105,7 @@ const CalculatorPage = () => {
       }
       return sum;
     }, 0);
-  }, [additionalServices]);
+  }, [additionalServices, additionalServicesList]);
 
   // Применяем минимальную цену только к базовой цене
   // Дополнительные услуги добавляются сверху
@@ -137,9 +137,52 @@ const CalculatorPage = () => {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log('Order:', { area, cleaningType, additionalServices, name, phone, comment });
+    
+    // Проверяем обязательные поля
+    if (!phone.trim()) {
+      alert('Пожалуйста, укажите номер телефона');
+      return;
+    }
+    
+    try {
+      // Отправляем данные на сервер
+      const response = await fetch(`${API_BASE_URL}/api/calculator/order`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          name: name.trim(),
+          phone: phone.trim(),
+          comment: comment.trim(),
+          area: area,
+          cleaningType: cleaningType,
+          additionalServices: additionalServices,
+          basePrice: basePrice,
+          adjustedBasePrice: adjustedBasePrice,
+          additionalPrice: additionalPrice,
+          finalPrice: finalPrice
+        })
+      });
+      
+      const result = await response.json();
+      
+      if (result.success) {
+        alert('Заказ успешно отправлен! Мы свяжемся с вами в ближайшее время.');
+        // Очищаем форму
+        setName('');
+        setPhone('');
+        setComment('');
+        setAdditionalServices({});
+      } else {
+        alert(`Ошибка при отправке заказа: ${result.error || 'Неизвестная ошибка'}`);
+      }
+    } catch (err) {
+      console.error('Ошибка отправки заказа:', err);
+      alert('Произошла ошибка при отправке заказа. Пожалуйста, попробуйте позже.');
+    }
   };
 
   return (

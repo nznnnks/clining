@@ -5,13 +5,12 @@ import HowWeWork from '../components/HowWeWork';
 import WhatIncluded from '../components/WhatIncluded';
 import Packages from '../components/Packages';
 import About from '../components/About';
-import Portfolio from '../components/Portfolio';
+import PortfolioSlider from '../components/PortfolioSlider';
 import Promotions from '../components/Promotions';
 import Reviews from '../components/Reviews';
 import WorkSteps from '../components/WorkSteps';
 import Employees from '../components/Employees';
 import FAQ from '../components/FAQ';
-import Calculator from '../components/Calculator';
 
 const HomePage = () => {
   useEffect(() => {
@@ -26,12 +25,11 @@ const HomePage = () => {
       <WhatIncluded />
       <Packages />
       <About />
-      <Portfolio />
+      <PortfolioSlider />
       <Promotions />
       <Reviews />
       <WorkSteps />
       <Employees />
-      <Calculator />
       <FAQ />
     </>
   );

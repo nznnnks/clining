@@ -534,12 +534,7 @@ const Header = () => {
                 </a>
               </li>
               <li>
-                <a 
-                  href="#calculator" 
-                  onClick={(e) => handleAnchorClick(e, 'calculator')}
-                >
-                  Калькулятор
-                </a>
+                <Link to="/calculator" onClick={closeMenu}>Калькулятор</Link>
               </li>
               <li>
                 <a 
@@ -773,12 +768,7 @@ const Header = () => {
                 </a>
               </li>
               <li className="header__mobileMenuItem">
-                <a 
-                  href="#calculator" 
-                  onClick={(e) => handleAnchorClick(e, 'calculator')}
-                >
-                  Калькулятор
-                </a>
+                <Link to="/calculator" onClick={closeMenu}>Калькулятор</Link>
               </li>
               <li className="header__mobileMenuItem">
                 <a 
