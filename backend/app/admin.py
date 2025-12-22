@@ -1,6 +1,6 @@
 from flask_admin import Admin
 from flask_admin.contrib.sqla import ModelView
-from flask import redirect, url_for, flash
+from flask import redirect, url_for, flash, request
 from flask_login import current_user
 from wtforms import PasswordField, TextAreaField
 from wtforms.validators import DataRequired
@@ -101,34 +101,142 @@ class PortfolioAdminView(SecureModelView):
     form_columns = ['title', 'description', 'category', 'area', 'time', 'price', 'images']
     
     form_extra_fields = {
-        'images': TextAreaField('Изображения (JSON массив) - опционально', description='Введите JSON массив URL изображений, например: ["url1.jpg", "url2.jpg"]')
+        'images': TextAreaField(
+            'Изображения (JSON массив) - опционально', 
+            description='Введите JSON массив URL изображений, например: ["url1.jpg", "url2.jpg"]'
+        )
     }
     
-    def on_model_change(self, form, model, is_created):
-        """Обработка изменения модели"""
-        if form.images.data and form.images.data.strip():
-            try:
-                images_data = json.loads(form.images.data)
-                if isinstance(images_data, list):
-                    model.images = json.dumps(images_data, ensure_ascii=False)
-                else:
-                    flash('Поле "Изображения" должно быть JSON массивом!', 'error')
-                    return False
-            except json.JSONDecodeError as e:
-                flash(f'Неверный формат JSON в поле "Изображения": {str(e)}', 'error')
-                return False
+    def create_form(self, obj=None):
+        """Форма создания с инициализацией поля images"""
+        form = super().create_form(obj)
+        if not hasattr(form, 'images'):
+            form.images = TextAreaField('Изображения (JSON массив)')
+        form.images.data = ''
+        return form
+    
+    def _process_images_field(self, form, model):
+        """Вспомогательный метод для обработки поля images"""
+
+        if request.method == 'POST':
+            images_data = request.form.get('images', '')
         else:
-            model.images = None
+            if hasattr(form, 'images') and form.images.data:
+                images_data = form.images.data
+            elif hasattr(model, 'images') and model.images:
+                images_data = model.images
+            else:
+                images_data = ''
+        
+        if not images_data:
+            if not hasattr(model, 'id') or model.id is None:
+                model.images = None
+            return True
+        
+        images_data = str(images_data).strip()
+        
+        if not images_data:
+            if not hasattr(model, 'id') or model.id is None:
+                model.images = None
+            return True
+        
+        try:
+            # Парсим JSON
+            parsed_data = json.loads(images_data)
+            
+            if not isinstance(parsed_data, list):
+                if isinstance(parsed_data, str):
+                    parsed_data = [parsed_data]
+                else:
+                    flash(f'Поле "Изображения" должно быть JSON массивом! Получен тип: {type(parsed_data).__name__}. Используйте формат: ["url1.jpg", "url2.jpg"]', 'error')
+                    return False
+            
+            filtered_data = []
+            for img in parsed_data:
+                if img and isinstance(img, str) and img.strip():
+                    filtered_data.append(img.strip())
+            
+            if filtered_data:
+                json_str = json.dumps(filtered_data, ensure_ascii=False)
+                model.images = json_str
+            else:
+                if not hasattr(model, 'id') or model.id is None:
+                    model.images = None
+                
+        except json.JSONDecodeError as e:
+            flash(f'Неверный формат JSON в поле "Изображения": {str(e)}. Введено: {images_data[:100]}. Используйте формат: ["url1.jpg", "url2.jpg"]', 'error')
+            return False
+        except Exception as e:
+            flash(f'Ошибка при обработке поля "Изображения": {str(e)}', 'error')
+            return False
+            
+        return True
+    
+    def _on_model_change(self, form, model, is_created):
+        """Внутренний метод Flask-Admin - переопределяем для полного контроля"""
+        result = self._process_images_field(form, model)
+        if not result:
+            return False
+        
+        saved_images = model.images
+        
+        super()._on_model_change(form, model, is_created)
+        
+        model.images = saved_images
+        
+        return True
+    
+    def on_model_change(self, form, model, is_created):
+        """Обработка изменения модели - вызывается перед сохранением"""
+        result = self._process_images_field(form, model)
+        if not result:
+            return False
+        
+        saved_images = model.images
+        
+        try:
+            super().on_model_change(form, model, is_created)
+        except AttributeError:
+            pass
+        
+        model.images = saved_images
+    
+    def on_model_save(self, form, model, is_created):
+        """Вызывается после on_model_change, перед сохранением в БД"""
+        saved_images = model.images
+        
+        # Обрабатываем поле
+        self._process_images_field(form, model)
+        
+        # Если после обработки значение None, но было сохраненное значение, восстанавливаем
+        if model.images is None and saved_images:
+            if hasattr(form, 'images') and form.images.data and str(form.images.data).strip():
+                # В форме было что-то введено, но обработка вернула None - оставляем None
+                pass
+            else:
+                model.images = saved_images
+        elif saved_images and not model.images:
+            model.images = saved_images
     
     def edit_form(self, obj=None):
         """Форма редактирования с предзаполнением JSON"""
         form = super().edit_form(obj)
-        if obj and obj.images:
+        
+        if not hasattr(form, 'images'):
+            form.images = TextAreaField('Изображения (JSON массив)')
+        
+        if obj and hasattr(obj, 'images') and obj.images:
             try:
                 images_list = json.loads(obj.images)
-                form.images.data = json.dumps(images_list, ensure_ascii=False, indent=2)
-            except:
-                form.images.data = obj.images
+                if isinstance(images_list, list) and len(images_list) > 0:
+                    form.images.data = json.dumps(images_list, ensure_ascii=False)
+                else:
+                    form.images.data = ''
+            except (json.JSONDecodeError, TypeError, AttributeError) as e:
+                form.images.data = str(obj.images) if obj.images else ''
+        else:
+            form.images.data = ''
+        
         return form
 
 
