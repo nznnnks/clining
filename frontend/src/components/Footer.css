@@ -99,6 +99,13 @@
   margin: 0;
 }
 
+@media (max-width: 968px) {
+  .footer__top {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 30px;
+  }
+}
+
 @media (max-width: 768px) {
   .footer {
     padding: 40px 0 20px;
@@ -107,6 +114,28 @@
   .footer__top {
     grid-template-columns: 1fr;
     gap: 30px;
+  }
+
+  .footer__topColH {
+    font-size: 1.1rem;
+  }
+
+  .footer__topColMap {
+    height: 200px;
+  }
+
+  .footer__topColMap iframe {
+    height: 200px;
+  }
+}
+
+@media (max-width: 480px) {
+  .footer__topColH {
+    font-size: 1rem;
+  }
+
+  .footer__navList li a {
+    font-size: 0.9rem;
   }
 }
 

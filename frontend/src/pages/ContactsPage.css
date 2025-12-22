@@ -400,6 +400,38 @@
   .contacts-page__detailsLabel {
     border-right: none;
     border-bottom: 1px solid var(--border-color);
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+  }
+}
+
+@media (max-width: 768px) {
+  .contacts-page__title {
+    font-size: 2rem;
+  }
+
+  .contacts-page__right {
+    height: 300px;
+  }
+
+  .contacts-page__orderButtons {
+    flex-direction: column;
+  }
+
+  .contacts-page__orderBtn {
+    width: 100%;
+    text-align: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .contacts-page__infoItem {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .contacts-page__infoIcon {
+    align-self: flex-start;
   }
 }
 

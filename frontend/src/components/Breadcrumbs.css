@@ -33,3 +33,35 @@
   margin: 0 4px;
 }
 
+@media (max-width: 768px) {
+  .breadcrumbs {
+    padding: 12px 0;
+  }
+
+  .breadcrumbs__link,
+  .breadcrumbs__current,
+  .breadcrumbs__separator {
+    font-size: 13px;
+  }
+}
+
+@media (max-width: 480px) {
+  .breadcrumbs {
+    padding: 10px 0;
+  }
+
+  .breadcrumbs .container {
+    gap: 6px;
+  }
+
+  .breadcrumbs__link,
+  .breadcrumbs__current,
+  .breadcrumbs__separator {
+    font-size: 12px;
+  }
+
+  .breadcrumbs__separator {
+    margin: 0 3px;
+  }
+}
+

@@ -94,9 +94,35 @@
   margin-top: 2px;
 }
 
+@media (max-width: 968px) {
+  .what-included__content {
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  }
+}
+
 @media (max-width: 768px) {
   .what-included__content {
     grid-template-columns: 1fr;
+  }
+
+  .what-included__tabs {
+    gap: 10px;
+  }
+
+  .what-included__tab {
+    padding: 10px 20px;
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .what-included__tabs {
+    flex-direction: column;
+  }
+
+  .what-included__tab {
+    width: 100%;
+    text-align: center;
   }
 }
 

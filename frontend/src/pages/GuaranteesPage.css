@@ -131,10 +131,100 @@
   margin: 0;
 }
 
+@media (max-width: 968px) {
+  .guarantees-page__hero {
+    padding: 35px 0;
+  }
+
+  .guarantees-page__content {
+    padding: 50px 0;
+  }
+}
+
 @media (max-width: 768px) {
+  .guarantees-page__hero {
+    padding: 30px 0;
+  }
+
+  .guarantees-page__title {
+    font-size: 2rem;
+  }
+
+  .guarantees-page__content {
+    padding: 40px 0;
+  }
+
+  .guarantees-page__subtitle {
+    font-size: 1.5rem;
+  }
+
+  .guarantees-page__sectionTitle {
+    font-size: 1.5rem;
+  }
+
   .guarantees-page__guarantee {
     flex-direction: column;
     gap: 20px;
+    padding: 20px;
+  }
+
+  .guarantees-page__guaranteeNumber {
+    width: 40px;
+    font-size: 1.5rem;
+  }
+
+  .guarantees-page__guaranteeTitle {
+    font-size: 1.2rem;
+  }
+
+  .guarantees-page__guaranteeText {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .guarantees-page__hero {
+    padding: 20px 0;
+  }
+
+  .guarantees-page__title {
+    font-size: 1.75rem;
+  }
+
+  .guarantees-page__content {
+    padding: 30px 0;
+  }
+
+  .guarantees-page__subtitle {
+    font-size: 1.3rem;
+  }
+
+  .guarantees-page__sectionTitle {
+    font-size: 1.3rem;
+  }
+
+  .guarantees-page__guarantee {
+    padding: 15px;
+  }
+
+  .guarantees-page__guaranteeTitle {
+    font-size: 1.1rem;
+  }
+
+  .guarantees-page__guaranteeText {
+    font-size: 0.95rem;
+  }
+
+  .guarantees-page__trustItem {
+    padding: 20px;
+  }
+
+  .guarantees-page__trustTitle {
+    font-size: 1.2rem;
+  }
+
+  .guarantees-page__trustText {
+    font-size: 1rem;
   }
 }
 

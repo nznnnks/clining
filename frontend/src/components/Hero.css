@@ -219,6 +219,16 @@
   }
 }
 
+@media (max-width: 968px) {
+  .banner__heading {
+    font-size: 2.5rem;
+  }
+
+  .banner__heading span {
+    font-size: 2rem;
+  }
+}
+
 @media (max-width: 768px) {
   .banner {
     padding: 60px 0;
@@ -228,13 +238,46 @@
     font-size: 2rem;
   }
 
+  .banner__heading span {
+    font-size: 1.5rem;
+  }
+
+  .banner__promo {
+    flex-direction: column;
+    text-align: center;
+    padding: 12px 15px;
+  }
+
   .banner__btnsRow {
     flex-direction: column;
+    gap: 15px;
   }
 
   .banner__btn {
     width: 100%;
     text-align: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .banner {
+    padding: 40px 0;
+  }
+
+  .banner__heading {
+    font-size: 1.75rem;
+  }
+
+  .banner__heading span {
+    font-size: 1.3rem;
+  }
+
+  .banner__promo {
+    font-size: 1rem;
+  }
+
+  .banner__achievements li {
+    font-size: 0.9rem;
   }
 }
 

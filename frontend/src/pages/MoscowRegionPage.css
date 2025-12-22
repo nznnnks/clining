@@ -49,3 +49,29 @@
   background-color: var(--bg-tertiary);
 }
 
+@media (max-width: 768px) {
+  .moscow-region-page__title {
+    font-size: 2rem;
+  }
+
+  .moscow-region-page__subtitle {
+    font-size: 1.2rem;
+  }
+
+  .moscow-region-page__cities {
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 10px;
+  }
+
+  .moscow-region-page__city {
+    padding: 12px 15px;
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .moscow-region-page__cities {
+    grid-template-columns: 1fr;
+  }
+}
+

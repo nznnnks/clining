@@ -263,12 +263,24 @@
   font-size: 18px;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 968px) {
   .service-page__header {
     grid-template-columns: 1fr;
     gap: 30px;
   }
 
+  .service-page__buttons {
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .service-page__btn {
+    width: 100%;
+    text-align: center;
+  }
+}
+
+@media (max-width: 768px) {
   .service-page__title {
     font-size: 1.8rem;
   }
@@ -276,6 +288,28 @@
   .service-page__contactWrapper {
     flex-direction: column;
     align-items: flex-start;
+    gap: 20px;
+  }
+
+  .service-page__contactButtons {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .service-page__contactBtn {
+    width: 100%;
+    text-align: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .service-page__title {
+    font-size: 1.5rem;
+  }
+
+  .service-page__promo {
+    flex-direction: column;
+    text-align: center;
   }
 }
 

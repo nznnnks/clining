@@ -72,7 +72,17 @@
   max-width: 200px;
 }
 
+@media (max-width: 968px) {
+  .work-steps__grid {
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  }
+}
+
 @media (max-width: 768px) {
+  .work-steps__grid {
+    grid-template-columns: 1fr;
+  }
+
   .work-steps__stepContent {
     padding: 25px 20px;
   }
@@ -83,6 +93,18 @@
 
   .work-steps__title {
     font-size: 1.3rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .work-steps__card {
+    padding: 30px 20px;
+  }
+
+  .work-steps__number {
+    width: 45px;
+    height: 45px;
+    font-size: 1.1rem;
   }
 }
 

@@ -46,3 +46,42 @@
   font-weight: 500;
 }
 
+@media (max-width: 968px) {
+  .service-tabs__wrapper {
+    gap: 10px;
+  }
+
+  .service-tabs__tab {
+    padding: 10px 20px;
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 768px) {
+  .service-tabs__wrapper {
+    gap: 8px;
+  }
+
+  .service-tabs__tab {
+    padding: 10px 16px;
+    font-size: 13px;
+  }
+
+  .service-tabs__icon {
+    font-size: 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .service-tabs__wrapper {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .service-tabs__tab {
+    width: 100%;
+    justify-content: center;
+    padding: 12px 20px;
+  }
+}
+

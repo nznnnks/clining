@@ -191,6 +191,18 @@
   border-radius: 6px;
 }
 
+@media (max-width: 968px) {
+  .promotions__carouselWrapper {
+    gap: 15px;
+  }
+
+  .promotions__arrow {
+    width: 45px;
+    height: 45px;
+    font-size: 22px;
+  }
+}
+
 @media (max-width: 768px) {
   .promotions__header {
     flex-direction: column;
@@ -210,6 +222,28 @@
 
   .promotions__card {
     min-height: 350px;
+    padding: 25px;
+  }
+
+  .promotions__cardTitle {
+    font-size: 1.3rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .promotions__arrow {
+    width: 35px;
+    height: 35px;
+    font-size: 18px;
+  }
+
+  .promotions__card {
+    padding: 20px;
+    min-height: 300px;
+  }
+
+  .promotions__dots {
+    gap: 8px;
   }
 }
 

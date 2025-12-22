@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import Header from './components/Header';
 import Footer from './components/Footer';
@@ -24,6 +24,26 @@ import './App.css';
 function AppContent() {
   const location = useLocation();
   const showFooter = location.pathname !== '/contacts';
+
+  // Обработка якорей при загрузке страницы
+  useEffect(() => {
+    const hash = window.location.hash;
+    if (hash) {
+      const anchorId = hash.substring(1);
+      setTimeout(() => {
+        const element = document.getElementById(anchorId);
+        if (element) {
+          const headerHeight = document.querySelector('.header')?.offsetHeight || 0;
+          const elementPosition = element.getBoundingClientRect().top + window.pageYOffset;
+          const offsetPosition = elementPosition - headerHeight - 20;
+          window.scrollTo({
+            top: offsetPosition,
+            behavior: 'smooth'
+          });
+        }
+      }, 100);
+    }
+  }, [location]);
 
   return (
     <div className="App">

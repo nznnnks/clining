@@ -22,3 +22,37 @@
   margin: 0;
 }
 
+@media (max-width: 968px) {
+  .prices-page__hero {
+    padding: 35px 0;
+  }
+}
+
+@media (max-width: 768px) {
+  .prices-page__hero {
+    padding: 30px 0;
+  }
+
+  .prices-page__title {
+    font-size: 2rem;
+  }
+
+  .prices-page__subtitle {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .prices-page__hero {
+    padding: 20px 0;
+  }
+
+  .prices-page__title {
+    font-size: 1.75rem;
+  }
+
+  .prices-page__subtitle {
+    font-size: 0.9rem;
+  }
+}
+

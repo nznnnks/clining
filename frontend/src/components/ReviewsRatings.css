@@ -171,20 +171,95 @@
   font-size: 1.2rem;
 }
 
+@media (max-width: 968px) {
+  .reviews-ratings {
+    padding: 60px 0;
+  }
+
+  .reviews-ratings__grid {
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 20px;
+  }
+}
+
 @media (max-width: 768px) {
+  .reviews-ratings {
+    padding: 50px 0;
+  }
+
+  .reviews-ratings__title {
+    font-size: 2rem;
+  }
+
   .reviews-ratings__header {
     flex-direction: column;
     gap: 20px;
     align-items: flex-start;
   }
 
+  .reviews-ratings__link {
+    width: 100%;
+    text-align: center;
+  }
+
   .reviews-ratings__grid {
     grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .reviews-ratings__card {
+    padding: 25px;
   }
 
   .reviews-ratings__messengers {
     flex-direction: column;
     gap: 20px;
+  }
+
+  .reviews-ratings__messengersText {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .reviews-ratings {
+    padding: 40px 0;
+  }
+
+  .reviews-ratings__title {
+    font-size: 1.75rem;
+  }
+
+  .reviews-ratings__header {
+    margin-bottom: 30px;
+  }
+
+  .reviews-ratings__link {
+    padding: 10px 20px;
+    font-size: 14px;
+  }
+
+  .reviews-ratings__card {
+    padding: 20px;
+  }
+
+  .reviews-ratings__rating {
+    font-size: 2rem;
+  }
+
+  .reviews-ratings__stars {
+    font-size: 1.2rem;
+  }
+
+  .reviews-ratings__messengersButtons {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .reviews-ratings__btn {
+    width: 100%;
+    justify-content: center;
+    padding: 10px 20px;
   }
 }
 

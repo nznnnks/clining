@@ -245,3 +245,42 @@
   }
 }
 
+@media (max-width: 768px) {
+  .calculator-page__title {
+    font-size: 2rem;
+  }
+
+  .calculator-page__sectionTitle {
+    font-size: 1.2rem;
+  }
+
+  .calculator-page__cleaningTypes {
+    flex-direction: column;
+  }
+
+  .calculator-page__cleaningType {
+    width: 100%;
+    text-align: center;
+  }
+
+  .calculator-page__areaControl {
+    justify-content: center;
+  }
+
+  .calculator-page__areaInput {
+    max-width: 150px;
+  }
+}
+
+@media (max-width: 480px) {
+  .calculator-page__additionalService {
+    flex-direction: column;
+    gap: 15px;
+    align-items: flex-start;
+  }
+
+  .calculator-page__serviceControl {
+    align-self: flex-end;
+  }
+}
+

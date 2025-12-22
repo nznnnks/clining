@@ -119,6 +119,14 @@
   text-align: center;
 }
 
+@media (max-width: 968px) {
+  .how-we-work__arrow {
+    width: 45px;
+    height: 45px;
+    font-size: 22px;
+  }
+}
+
 @media (max-width: 768px) {
   .how-we-work__arrow {
     display: none;
@@ -126,6 +134,16 @@
 
   .how-we-work__videos {
     padding: 0;
+  }
+
+  .how-we-work__video {
+    min-width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .how-we-work__video {
+    padding: 20px;
   }
 }
 

@@ -223,12 +223,42 @@
 }
 
 @media (max-width: 768px) {
+  .reviews-page__title {
+    font-size: 2rem;
+  }
+
   .reviews-page__ratingsGrid {
     grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .reviews-page__cta {
+    padding: 20px;
+  }
+
+  .reviews-page__ctaText {
+    font-size: 1rem;
   }
 
   .reviews-page__grid {
     grid-template-columns: 1fr;
+  }
+
+  .reviews-page__card {
+    padding: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .reviews-page__header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 15px;
+  }
+
+  .reviews-page__link {
+    width: 100%;
+    text-align: center;
   }
 }
 

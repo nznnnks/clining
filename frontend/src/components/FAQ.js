@@ -60,7 +60,27 @@ const FAQ = () => {
               <div className="faq__specialistInfo">
                 <p className="faq__specialistText">На вопросы отвечает специалист по клинингу</p>
                 <p className="faq__specialistName">Татьяна</p>
-                <a href="#contacts" className="faq__specialistButton btn">
+                <a 
+                  href="#contacts" 
+                  className="faq__specialistButton btn"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    if (window.location.pathname !== '/') {
+                      window.location.href = '/#contacts';
+                    } else {
+                      const element = document.getElementById('contacts');
+                      if (element) {
+                        const headerHeight = document.querySelector('.header')?.offsetHeight || 0;
+                        const elementPosition = element.getBoundingClientRect().top + window.pageYOffset;
+                        const offsetPosition = elementPosition - headerHeight - 20;
+                        window.scrollTo({
+                          top: offsetPosition,
+                          behavior: 'smooth'
+                        });
+                      }
+                    }
+                  }}
+                >
                   Задать свой вопрос
                 </a>
               </div>

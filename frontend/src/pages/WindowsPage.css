@@ -188,14 +188,37 @@
   margin: 0 0 20px 0;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 968px) {
   .windows-page__header {
     grid-template-columns: 1fr;
     gap: 30px;
   }
 
+  .windows-page__buttons {
+    flex-direction: column;
+  }
+
+  .windows-page__btn {
+    width: 100%;
+    text-align: center;
+    justify-content: center;
+  }
+}
+
+@media (max-width: 768px) {
   .windows-page__title {
     font-size: 1.8rem;
+  }
+
+  .windows-page__promo {
+    flex-direction: column;
+    text-align: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .windows-page__title {
+    font-size: 1.5rem;
   }
 }
 

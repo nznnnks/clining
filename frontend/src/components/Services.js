@@ -51,9 +51,12 @@ const Services = () => {
     const handleScroll = () => {
       if (!contentRef.current || isScrolling) return;
       
-      const cardWidth = 330;
+      const isMobile = window.innerWidth <= 768;
+      const cardWidth = isMobile 
+        ? contentRef.current.clientWidth - (window.innerWidth <= 480 ? 30 : 40)
+        : 330;
       const scrollLeft = contentRef.current.scrollLeft;
-      const newIndex = Math.round(scrollLeft / cardWidth);
+      const newIndex = Math.round(scrollLeft / (cardWidth + (isMobile ? 15 : 30)));
       
       if (newIndex >= 0 && newIndex < services.length) {
         setActiveIndex(newIndex);
@@ -71,9 +74,13 @@ const Services = () => {
     if (isScrolling || !contentRef.current) return;
     
     setIsScrolling(true);
-    const cardWidth = 330; // 300px + 30px gap
+    const isMobile = window.innerWidth <= 768;
+    const gap = isMobile ? 15 : 30;
+    const cardWidth = isMobile 
+      ? contentRef.current.clientWidth - (window.innerWidth <= 480 ? 30 : 40)
+      : 300;
+    const totalCardWidth = cardWidth + gap;
     const maxScroll = contentRef.current.scrollWidth - contentRef.current.clientWidth;
-    const currentScroll = contentRef.current.scrollLeft;
     const nextIndex = (activeIndex + 1) % services.length;
     
     if (nextIndex === 0) {
@@ -85,7 +92,7 @@ const Services = () => {
       setActiveIndex(0);
     } else {
       // Прокручиваем к следующей карточке
-      const targetScroll = nextIndex * cardWidth;
+      const targetScroll = nextIndex * totalCardWidth;
       contentRef.current.scrollTo({
         left: Math.min(targetScroll, maxScroll),
         behavior: 'smooth'
@@ -100,8 +107,12 @@ const Services = () => {
     if (isScrolling || !contentRef.current) return;
     
     setIsScrolling(true);
-    const cardWidth = 330;
-    const currentScroll = contentRef.current.scrollLeft;
+    const isMobile = window.innerWidth <= 768;
+    const gap = isMobile ? 15 : 30;
+    const cardWidth = isMobile 
+      ? contentRef.current.clientWidth - (window.innerWidth <= 480 ? 30 : 40)
+      : 300;
+    const totalCardWidth = cardWidth + gap;
     const prevIndex = (activeIndex - 1 + services.length) % services.length;
     
     if (prevIndex === services.length - 1) {
@@ -114,7 +125,7 @@ const Services = () => {
       setActiveIndex(services.length - 1);
     } else {
       // Прокручиваем к предыдущей карточке
-      const targetScroll = prevIndex * cardWidth;
+      const targetScroll = prevIndex * totalCardWidth;
       contentRef.current.scrollTo({
         left: Math.max(targetScroll, 0),
         behavior: 'smooth'
@@ -154,7 +165,27 @@ const Services = () => {
                     </div>
                   </div>
                   <div className="services__cardPrice">{service.price}</div>
-                  <a href="#calculator" className="services__cardButton btn">
+                  <a 
+                    href="#calculator" 
+                    className="services__cardButton btn"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      if (window.location.pathname !== '/') {
+                        window.location.href = '/#calculator';
+                      } else {
+                        const element = document.getElementById('calculator');
+                        if (element) {
+                          const headerHeight = document.querySelector('.header')?.offsetHeight || 0;
+                          const elementPosition = element.getBoundingClientRect().top + window.pageYOffset;
+                          const offsetPosition = elementPosition - headerHeight - 20;
+                          window.scrollTo({
+                            top: offsetPosition,
+                            behavior: 'smooth'
+                          });
+                        }
+                      }
+                    }}
+                  >
                     Узнать подробнее
                   </a>
                 </div>

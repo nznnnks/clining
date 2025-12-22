@@ -265,7 +265,29 @@
 }
 
 @media (max-width: 768px) {
+  .about-page__hero {
+    padding: 30px 0;
+  }
+
+  .about-page__title {
+    font-size: 2rem;
+  }
+
   .about-page__stats {
     grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .about-page__hero {
+    padding: 20px 0;
+  }
+
+  .about-page__title {
+    font-size: 1.75rem;
+  }
+
+  .about-page__subtitle {
+    font-size: 1rem;
   }
 }

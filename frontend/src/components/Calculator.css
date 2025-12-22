@@ -197,9 +197,23 @@
   margin: 5px 0;
 }
 
+@media (max-width: 968px) {
+  .calculator__form {
+    padding: 35px 25px;
+  }
+}
+
 @media (max-width: 768px) {
   .calculator__form {
     padding: 25px 20px;
+  }
+
+  .calculator__field {
+    margin-bottom: 25px;
+  }
+
+  .calculator__label {
+    font-size: 1rem;
   }
 
   .calculator__radioGroup {
@@ -208,6 +222,23 @@
 
   .calculator__radio {
     width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .calculator__form {
+    padding: 20px 15px;
+  }
+
+  .calculator__areaControl {
+    gap: 10px;
+  }
+
+  .calculator__btnMinus,
+  .calculator__btnPlus {
+    width: 35px;
+    height: 35px;
+    font-size: 18px;
   }
 }
 

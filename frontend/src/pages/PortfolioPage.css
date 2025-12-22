@@ -309,3 +309,103 @@
   }
 }
 
+@media (max-width: 768px) {
+  .portfolio-page__hero {
+    padding: 30px 0 0;
+  }
+
+  .portfolio-page__title {
+    font-size: 2rem;
+  }
+
+  .portfolio-page__wrapper {
+    padding: 30px 0 40px;
+    gap: 30px;
+  }
+
+  .portfolio-page__orderTitle {
+    font-size: 1.75rem;
+  }
+
+  .portfolio-page__orderCard {
+    padding: 25px;
+  }
+
+  .portfolio-page__orderButtons {
+    flex-direction: column;
+  }
+
+  .portfolio-page__orderBtn {
+    width: 100%;
+    text-align: center;
+    min-width: auto;
+  }
+
+  .portfolio-page__orderSteps {
+    padding: 25px;
+  }
+
+  .portfolio-page__orderStepsTitle {
+    font-size: 1.2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .portfolio-page__hero {
+    padding: 20px 0 0;
+  }
+
+  .portfolio-page__title {
+    font-size: 1.75rem;
+  }
+
+  .portfolio-page__wrapper {
+    padding: 20px 0 30px;
+    gap: 25px;
+  }
+
+  .portfolio-page__orderTitle {
+    font-size: 1.5rem;
+  }
+
+  .portfolio-page__orderCard {
+    padding: 20px;
+  }
+
+  .portfolio-page__orderSubtitle {
+    font-size: 14px;
+  }
+
+  .portfolio-page__orderBtn {
+    padding: 12px 20px;
+    font-size: 15px;
+  }
+
+  .portfolio-page__orderInput {
+    padding: 12px 16px;
+    font-size: 15px;
+  }
+
+  .portfolio-page__orderSubmit {
+    padding: 14px;
+    font-size: 15px;
+  }
+
+  .portfolio-page__orderCheckbox {
+    font-size: 12px;
+  }
+
+  .portfolio-page__orderSteps {
+    padding: 20px;
+  }
+
+  .portfolio-page__orderStepsTitle {
+    font-size: 1.1rem;
+    margin-bottom: 15px;
+  }
+
+  .portfolio-page__orderStepText {
+    font-size: 14px;
+  }
+}
+

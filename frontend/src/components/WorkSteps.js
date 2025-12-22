@@ -44,7 +44,27 @@ const WorkSteps = () => {
               <h3 className="work-steps__title">{step.title}</h3>
               <p className="work-steps__description">{step.description}</p>
               {step.button && (
-                <a href="#calculator" className="work-steps__button btn">
+                <a 
+                  href="#calculator" 
+                  className="work-steps__button btn"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    if (window.location.pathname !== '/') {
+                      window.location.href = '/#calculator';
+                    } else {
+                      const element = document.getElementById('calculator');
+                      if (element) {
+                        const headerHeight = document.querySelector('.header')?.offsetHeight || 0;
+                        const elementPosition = element.getBoundingClientRect().top + window.pageYOffset;
+                        const offsetPosition = elementPosition - headerHeight - 20;
+                        window.scrollTo({
+                          top: offsetPosition,
+                          behavior: 'smooth'
+                        });
+                      }
+                    }
+                  }}
+                >
                   {step.button}
                 </a>
               )}

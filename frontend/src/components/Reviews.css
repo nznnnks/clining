@@ -139,13 +139,41 @@
   font-style: italic;
 }
 
+@media (max-width: 968px) {
+  .reviews__platforms {
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  }
+}
+
 @media (max-width: 768px) {
   .reviews__platforms {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+
+  .reviews__help {
+    flex-direction: column;
+    text-align: center;
+    gap: 20px;
+  }
+
+  .reviews__helpButton {
+    width: 100%;
+    text-align: center;
   }
 
   .reviews__list {
     grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .reviews__platforms {
+    grid-template-columns: 1fr;
+  }
+
+  .reviews__platform {
+    padding: 25px;
   }
 }
 

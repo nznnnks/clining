@@ -113,14 +113,91 @@
   border: 1px solid var(--border-color);
 }
 
+@media (max-width: 968px) {
+  .payment-terms-page__hero {
+    padding: 35px 0;
+  }
+
+  .payment-terms-page__content {
+    padding: 50px 0;
+  }
+}
+
 @media (max-width: 768px) {
+  .payment-terms-page__hero {
+    padding: 30px 0;
+  }
+
+  .payment-terms-page__title {
+    font-size: 2rem;
+  }
+
+  .payment-terms-page__content {
+    padding: 40px 0;
+  }
+
+  .payment-terms-page__paragraph {
+    font-size: 1rem;
+  }
+
+  .payment-terms-page__list {
+    font-size: 1rem;
+    padding-left: 20px;
+  }
+
   .payment-terms-page__cardDiagram {
     flex-direction: column;
     align-items: center;
   }
 
+  .payment-terms-page__cardFront,
+  .payment-terms-page__cardBack {
+    width: 100%;
+    max-width: 300px;
+  }
+
   .payment-terms-page__labels {
     grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .payment-terms-page__hero {
+    padding: 20px 0;
+  }
+
+  .payment-terms-page__title {
+    font-size: 1.75rem;
+  }
+
+  .payment-terms-page__content {
+    padding: 30px 0;
+  }
+
+  .payment-terms-page__paragraph {
+    font-size: 0.95rem;
+  }
+
+  .payment-terms-page__list {
+    font-size: 0.95rem;
+    padding-left: 15px;
+  }
+
+  .payment-terms-page__cardFront,
+  .payment-terms-page__cardBack {
+    width: 100%;
+    height: 160px;
+    padding: 15px;
+  }
+
+  .payment-terms-page__cardNumber {
+    font-size: 1rem;
+    margin-top: 30px;
+  }
+
+  .payment-terms-page__label {
+    font-size: 0.9rem;
+    padding: 12px;
   }
 }
 

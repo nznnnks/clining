@@ -11,6 +11,7 @@ import Reviews from '../components/Reviews';
 import WorkSteps from '../components/WorkSteps';
 import Employees from '../components/Employees';
 import FAQ from '../components/FAQ';
+import Calculator from '../components/Calculator';
 
 const HomePage = () => {
   useEffect(() => {
@@ -30,6 +31,7 @@ const HomePage = () => {
       <Reviews />
       <WorkSteps />
       <Employees />
+      <Calculator />
       <FAQ />
     </>
   );

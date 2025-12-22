@@ -55,7 +55,27 @@ const Reviews = () => {
         </div>
         <div className="reviews__help">
           <h3>Помогите стать нам лучше!</h3>
-          <a href="#contacts" className="reviews__helpButton btn">
+          <a 
+            href="#contacts" 
+            className="reviews__helpButton btn"
+            onClick={(e) => {
+              e.preventDefault();
+              if (window.location.pathname !== '/') {
+                window.location.href = '/#contacts';
+              } else {
+                const element = document.getElementById('contacts');
+                if (element) {
+                  const headerHeight = document.querySelector('.header')?.offsetHeight || 0;
+                  const elementPosition = element.getBoundingClientRect().top + window.pageYOffset;
+                  const offsetPosition = elementPosition - headerHeight - 20;
+                  window.scrollTo({
+                    top: offsetPosition,
+                    behavior: 'smooth'
+                  });
+                }
+              }
+            }}
+          >
             Оставить свой отзыв →
           </a>
         </div>

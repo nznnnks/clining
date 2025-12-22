@@ -95,7 +95,23 @@ const ReviewsPage = () => {
             </div>
             <div className="reviews-page__cta">
               <div className="reviews-page__ctaText">Помогите стать нам лучше!</div>
-              <a href="#reviews" className="reviews-page__ctaButton btn">
+              <a 
+                href="#reviews" 
+                className="reviews-page__ctaButton btn"
+                onClick={(e) => {
+                  e.preventDefault();
+                  const element = document.getElementById('reviews');
+                  if (element) {
+                    const headerHeight = document.querySelector('.header')?.offsetHeight || 0;
+                    const elementPosition = element.getBoundingClientRect().top + window.pageYOffset;
+                    const offsetPosition = elementPosition - headerHeight - 20;
+                    window.scrollTo({
+                      top: offsetPosition,
+                      behavior: 'smooth'
+                    });
+                  }
+                }}
+              >
                 Оставить свой отзыв
                 <span className="reviews-page__ctaArrow">→</span>
               </a>
@@ -104,7 +120,7 @@ const ReviewsPage = () => {
         </div>
       </section>
 
-      <section className="reviews-page__content">
+      <section id="reviews" className="reviews-page__content">
         <div className="container">
           <div className="reviews-page__grid">
             {reviews.map(review => (

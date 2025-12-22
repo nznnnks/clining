@@ -110,6 +110,12 @@
   transform: translateY(-2px);
 }
 
+@media (max-width: 968px) {
+  .contact-buttons__manager {
+    max-width: 400px;
+  }
+}
+
 @media (max-width: 768px) {
   .contact-buttons {
     left: 15px;
@@ -121,26 +127,77 @@
 
   .contact-buttons__phone {
     align-self: flex-start;
+    width: 60px;
+    height: 60px;
+  }
+
+  .contact-buttons__phoneIcon {
+    font-size: 24px;
   }
 
   .contact-buttons__manager {
     max-width: 100%;
+    min-width: auto;
     flex-wrap: wrap;
+    padding: 12px 15px;
+  }
+
+  .contact-buttons__managerAvatar {
+    width: 45px;
+    height: 45px;
+    font-size: 28px;
   }
 
   .contact-buttons__managerText {
     width: 100%;
     margin-bottom: 10px;
+    font-size: 13px;
   }
 
   .contact-buttons__managerButtons {
     width: 100%;
     justify-content: stretch;
+    gap: 10px;
   }
 
   .contact-buttons__managerBtn {
     flex: 1;
     text-align: center;
+    padding: 10px 15px;
+    font-size: 13px;
+  }
+}
+
+@media (max-width: 480px) {
+  .contact-buttons {
+    left: 10px;
+    right: 10px;
+    bottom: 10px;
+  }
+
+  .contact-buttons__phone {
+    width: 55px;
+    height: 55px;
+  }
+
+  .contact-buttons__manager {
+    min-width: auto;
+    padding: 10px 12px;
+  }
+
+  .contact-buttons__managerAvatar {
+    width: 40px;
+    height: 40px;
+    font-size: 24px;
+  }
+
+  .contact-buttons__managerText {
+    font-size: 12px;
+  }
+
+  .contact-buttons__managerBtn {
+    font-size: 12px;
+    padding: 8px 12px;
   }
 }
 

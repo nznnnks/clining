@@ -1,7 +1,30 @@
 import React from 'react';
+import { Link, useLocation } from 'react-router-dom';
 import './Footer.css';
 
 const Footer = () => {
+  const location = useLocation();
+
+  const handleAnchorClick = (e, anchorId) => {
+    e.preventDefault();
+    if (location.pathname !== '/') {
+      // Если не на главной странице, переходим на главную и затем скроллим
+      window.location.href = `/#${anchorId}`;
+    } else {
+      // Если на главной странице, просто скроллим
+      const element = document.getElementById(anchorId);
+      if (element) {
+        const headerHeight = document.querySelector('.header')?.offsetHeight || 0;
+        const elementPosition = element.getBoundingClientRect().top + window.pageYOffset;
+        const offsetPosition = elementPosition - headerHeight - 20;
+        window.scrollTo({
+          top: offsetPosition,
+          behavior: 'smooth'
+        });
+      }
+    }
+  };
+
   return (
     <footer id="contacts" className="footer">
       <div className="container">
@@ -66,22 +89,22 @@ const Footer = () => {
             <nav className="footer__nav">
               <ul className="footer__navList">
                 <li>
-                  <a href="#home">Главная</a>
+                  <Link to="/" onClick={(e) => handleAnchorClick(e, 'home')}>Главная</Link>
                 </li>
                 <li>
-                  <a href="#about">О нас</a>
+                  <Link to="/" onClick={(e) => handleAnchorClick(e, 'about')}>О нас</Link>
                 </li>
                 <li>
-                  <a href="#portfolio">Портфолио</a>
+                  <Link to="/" onClick={(e) => handleAnchorClick(e, 'portfolio')}>Портфолио</Link>
                 </li>
                 <li>
-                  <a href="#packages">Пакеты услуг</a>
+                  <Link to="/" onClick={(e) => handleAnchorClick(e, 'packages')}>Пакеты услуг</Link>
                 </li>
                 <li>
-                  <a href="#steps">Этапы работы</a>
+                  <Link to="/" onClick={(e) => handleAnchorClick(e, 'steps')}>Этапы работы</Link>
                 </li>
                 <li>
-                  <a href="#calculator">Калькулятор</a>
+                  <Link to="/" onClick={(e) => handleAnchorClick(e, 'calculator')}>Калькулятор</Link>
                 </li>
               </ul>
             </nav>
