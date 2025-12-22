@@ -3,6 +3,9 @@ import Breadcrumbs from '../components/Breadcrumbs';
 import ReviewsRatings from '../components/ReviewsRatings';
 import './CalculatorPage.css';
 
+// Базовый URL API (можно вынести в конфигурационный файл)
+const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000';
+
 const CalculatorPage = () => {
   const [area, setArea] = useState(50);
   const [cleaningType, setCleaningType] = useState('maintenance');
@@ -10,34 +13,86 @@ const CalculatorPage = () => {
   const [name, setName] = useState('');
   const [phone, setPhone] = useState('');
   const [comment, setComment] = useState('');
+  const [cleaningTypes, setCleaningTypes] = useState([]);
+  const [additionalServicesList, setAdditionalServicesList] = useState([]);
+  const [minPrice, setMinPrice] = useState(4000);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     document.title = 'Калькулятор уборки - Уборка 24';
+    
+    // Загружаем данные из API
+    const fetchPrices = async () => {
+      try {
+        setLoading(true);
+        const response = await fetch(`${API_BASE_URL}/api/calculator/prices`);
+        const result = await response.json();
+        
+        if (result.success) {
+          setCleaningTypes(result.data.cleaningTypes);
+          setAdditionalServicesList(result.data.additionalServices);
+          setMinPrice(result.data.minPrice);
+          
+          // Устанавливаем первый тип уборки по умолчанию, если есть данные
+          if (result.data.cleaningTypes.length > 0) {
+            setCleaningType(result.data.cleaningTypes[0].id);
+          }
+        } else {
+          setError('Не удалось загрузить данные о ценах');
+          // Используем значения по умолчанию в случае ошибки
+          setCleaningTypes([
+            { id: 'maintenance', label: 'Поддерживающая', price: 70 },
+            { id: 'general', label: 'Генеральная', price: 130 },
+            { id: 'after-renovation', label: 'После ремонта', price: 150 }
+          ]);
+          setAdditionalServicesList([
+            { id: 'oven', label: 'Мытье духовки внутри', price: 800, unit: 'шт.' },
+            { id: 'microwave', label: 'Мытье СВЧ внутри', price: 400, unit: 'шт.' },
+            { id: 'fridge', label: 'Мытье холодильника внутри', price: 800, unit: 'шт.' },
+            { id: 'windows', label: 'Мойка окон', price: 400, unit: 'створка' },
+            { id: 'chandelier', label: 'Мытье хрустальной люстры', price: 1500, unit: 'шт.' },
+            { id: 'hood', label: 'Мытье вытяжки', price: 400, unit: 'шт.' },
+            { id: 'washing-machine', label: 'Мытье стиральной машины внутри', price: 550, unit: 'шт.' },
+            { id: 'ironing', label: 'Глажка', price: 1000, unit: '60 мин' },
+            { id: 'bed-linen', label: 'Смена постельного белья', price: 500, unit: 'комплект' },
+            { id: 'balcony', label: 'Уборка на балконе', price: 600, unit: 'м²' }
+          ]);
+        }
+      } catch (err) {
+        console.error('Ошибка загрузки цен:', err);
+        setError('Не удалось загрузить данные о ценах');
+        // Используем значения по умолчанию в случае ошибки
+        setCleaningTypes([
+          { id: 'maintenance', label: 'Поддерживающая', price: 70 },
+          { id: 'general', label: 'Генеральная', price: 130 },
+          { id: 'after-renovation', label: 'После ремонта', price: 150 }
+        ]);
+        setAdditionalServicesList([
+          { id: 'oven', label: 'Мытье духовки внутри', price: 800, unit: 'шт.' },
+          { id: 'microwave', label: 'Мытье СВЧ внутри', price: 400, unit: 'шт.' },
+          { id: 'fridge', label: 'Мытье холодильника внутри', price: 800, unit: 'шт.' },
+          { id: 'windows', label: 'Мойка окон', price: 400, unit: 'створка' },
+          { id: 'chandelier', label: 'Мытье хрустальной люстры', price: 1500, unit: 'шт.' },
+          { id: 'hood', label: 'Мытье вытяжки', price: 400, unit: 'шт.' },
+          { id: 'washing-machine', label: 'Мытье стиральной машины внутри', price: 550, unit: 'шт.' },
+          { id: 'ironing', label: 'Глажка', price: 1000, unit: '60 мин' },
+          { id: 'bed-linen', label: 'Смена постельного белья', price: 500, unit: 'комплект' },
+          { id: 'balcony', label: 'Уборка на балконе', price: 600, unit: 'м²' }
+        ]);
+      } finally {
+        setLoading(false);
+      }
+    };
+    
+    fetchPrices();
   }, []);
-
-  const cleaningTypes = [
-    { id: 'maintenance', label: 'Поддерживающая', price: 70 },
-    { id: 'general', label: 'Генеральная', price: 130 },
-    { id: 'after-renovation', label: 'После ремонта', price: 150 }
-  ];
-
-  const additionalServicesList = [
-    { id: 'oven', label: 'Мытье духовки внутри', price: 800, unit: 'шт.' },
-    { id: 'microwave', label: 'Мытье СВЧ внутри', price: 400, unit: 'шт.' },
-    { id: 'fridge', label: 'Мытье холодильника внутри', price: 800, unit: 'шт.' },
-    { id: 'windows', label: 'Мойка окон', price: 400, unit: 'створка' },
-    { id: 'chandelier', label: 'Мытье хрустальной люстры', price: 1500, unit: 'шт.' },
-    { id: 'hood', label: 'Мытье вытяжки', price: 400, unit: 'шт.' },
-    { id: 'washing-machine', label: 'Мытье стиральной машины внутри', price: 550, unit: 'шт.' },
-    { id: 'ironing', label: 'Глажка', price: 1000, unit: '60 мин' },
-    { id: 'bed-linen', label: 'Смена постельного белья', price: 500, unit: 'комплект' },
-    { id: 'balcony', label: 'Уборка на балконе', price: 600, unit: 'м²' }
-  ];
 
   const currentCleaningType = cleaningTypes.find(t => t.id === cleaningType);
   
   // Используем useMemo для расчета цен, чтобы они пересчитывались только при изменении зависимостей
   const basePrice = useMemo(() => {
+    if (!currentCleaningType) return 0;
     return area * currentCleaningType.price;
   }, [area, currentCleaningType]);
   
@@ -52,11 +107,11 @@ const CalculatorPage = () => {
     }, 0);
   }, [additionalServices]);
 
-  // Применяем минимальную цену 4000 только к базовой цене
+  // Применяем минимальную цену только к базовой цене
   // Дополнительные услуги добавляются сверху
   const adjustedBasePrice = useMemo(() => {
-    return basePrice < 4000 ? 4000 : basePrice;
-  }, [basePrice]);
+    return basePrice < minPrice ? minPrice : basePrice;
+  }, [basePrice, minPrice]);
   
   // Рассчитываем итоговую цену: скорректированная базовая цена + дополнительные услуги
   const finalPrice = useMemo(() => {
@@ -102,6 +157,16 @@ const CalculatorPage = () => {
 
       <section className="calculator-page__content">
         <div className="container">
+          {loading && (
+            <div style={{ textAlign: 'center', padding: '20px' }}>
+              Загрузка данных...
+            </div>
+          )}
+          {error && (
+            <div style={{ textAlign: 'center', padding: '20px', color: '#ff6b6b' }}>
+              {error}
+            </div>
+          )}
           <div className="calculator-page__wrapper">
             <div className="calculator-page__left">
               <div className="calculator-page__section">
@@ -132,31 +197,22 @@ const CalculatorPage = () => {
               <div className="calculator-page__section">
                 <h2 className="calculator-page__sectionTitle">Тип уборки</h2>
                 <div className="calculator-page__cleaningTypes">
-                  <button
-                    className={`calculator-page__cleaningType ${cleaningType === 'maintenance' ? 'calculator-page__cleaningType--active' : ''}`}
-                    onClick={() => setCleaningType('maintenance')}
-                  >
-                    Поддерживающая
-                  </button>
-                  <button
-                    className={`calculator-page__cleaningType ${cleaningType === 'general' ? 'calculator-page__cleaningType--active' : ''}`}
-                    onClick={() => setCleaningType('general')}
-                  >
-                    Генеральная
-                  </button>
-                  <button
-                    className={`calculator-page__cleaningType ${cleaningType === 'after-renovation' ? 'calculator-page__cleaningType--active' : ''}`}
-                    onClick={() => setCleaningType('after-renovation')}
-                  >
-                    После ремонта
-                  </button>
+                  {cleaningTypes.map(type => (
+                    <button
+                      key={type.id}
+                      className={`calculator-page__cleaningType ${cleaningType === type.id ? 'calculator-page__cleaningType--active' : ''}`}
+                      onClick={() => setCleaningType(type.id)}
+                    >
+                      {type.label}
+                    </button>
+                  ))}
                 </div>
               </div>
 
               <div className="calculator-page__section">
                 <h2 className="calculator-page__sectionTitle">Дополнительные услуги</h2>
                 <div className="calculator-page__additionalServices">
-                  {additionalServicesList.map(service => (
+                  {additionalServicesList.length > 0 ? additionalServicesList.map(service => (
                     <div key={service.id} className="calculator-page__additionalService">
                       <div className="calculator-page__serviceInfo">
                         <span className="calculator-page__serviceLabel">{service.label}</span>
@@ -178,7 +234,11 @@ const CalculatorPage = () => {
                         </button>
                       </div>
                     </div>
-                  ))}
+                  )) : (
+                    <div style={{ padding: '20px', textAlign: 'center' }}>
+                      Нет доступных услуг
+                    </div>
+                  )}
                 </div>
               </div>
             </div>
@@ -187,7 +247,7 @@ const CalculatorPage = () => {
               <div className="calculator-page__orderCard">
                 <div className="calculator-page__orderOptions">
                   <div className="calculator-page__orderOption">
-                    {currentCleaningType.label} уборка, {area} м²
+                    {currentCleaningType ? `${currentCleaningType.label} уборка, ${area} м²` : 'Загрузка...'}
                   </div>
                 </div>
                 <div className="calculator-page__orderPrice">
