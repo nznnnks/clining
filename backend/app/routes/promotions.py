@@ -6,7 +6,7 @@ from datetime import datetime
 bp = Blueprint('promotions', __name__)
 
 
-@bp.route('/', methods=['GET'])
+@bp.route('/', methods=['GET'], strict_slashes=False)
 def get_promotions():
     """Получить все акции"""
     try:

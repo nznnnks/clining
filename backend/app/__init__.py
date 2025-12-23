@@ -13,6 +13,7 @@ def create_app(config_class=Config):
     import os
     template_dir = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'templates')
     app = Flask(__name__, template_folder=template_dir)
+    app.url_map.strict_slashes = False  # Отключаем строгую проверку слешей для всех маршрутов
     
     # Сначала формируем правильный URI БД с абсолютным путем для Windows
     # Это нужно сделать ДО загрузки конфигурации и инициализации db
@@ -65,7 +66,6 @@ def create_app(config_class=Config):
     login_manager.init_app(app)
     
     # Настройка Flask-Login
-    login_manager.login_view = 'admin_auth.login'
     login_manager.login_message = 'Пожалуйста, войдите для доступа к админке'
     login_manager.login_message_category = 'info'
     
@@ -74,7 +74,11 @@ def create_app(config_class=Config):
         from app.models import User
         return User.query.get(int(user_id))
     
-    CORS(app, origins=app.config['CORS_ORIGINS'])
+    CORS(app, 
+         origins=app.config['CORS_ORIGINS'],
+         supports_credentials=True,
+         allow_headers=['Content-Type', 'Authorization'],
+         methods=['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'])
     
     # Регистрация основных маршрутов
     from app.routes import bp as main_bp
@@ -92,13 +96,9 @@ def create_app(config_class=Config):
     from app.routes.calculator import bp as calculator_bp
     app.register_blueprint(calculator_bp, url_prefix='/api/calculator')
     
-    # Регистрация маршрутов для админки
-    from app.routes.admin import bp as admin_bp
-    app.register_blueprint(admin_bp, url_prefix='/admin')
-    
-    # Регистрация Flask-Admin
-    from app.admin import init_admin
-    init_admin(app)
+    # Регистрация API маршрутов для админки
+    from app.routes.admin_api import bp as admin_api_bp
+    app.register_blueprint(admin_api_bp, url_prefix='/api/admin')
     
     return app
 

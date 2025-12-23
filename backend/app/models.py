@@ -24,6 +24,16 @@ class User(db.Model, UserMixin):
         """Проверяет пароль"""
         return check_password_hash(self.password_hash, password)
     
+    def to_dict(self):
+        """Преобразует объект в словарь для API"""
+        return {
+            'id': self.id,
+            'username': self.username,
+            'email': self.email,
+            'is_admin': self.is_admin,
+            'created_at': self.created_at.isoformat() if self.created_at else None
+        }
+    
     def __repr__(self):
         return f'<User {self.username}>'
 
@@ -109,7 +119,9 @@ class CleaningType(db.Model):
             'label': self.label,
             'price': self.price,
             'order': self.order,
-            'is_active': self.is_active
+            'is_active': self.is_active,
+            'created_at': self.created_at.isoformat() if self.created_at else None,
+            'updated_at': self.updated_at.isoformat() if self.updated_at else None
         }
     
     def __repr__(self):
@@ -137,7 +149,9 @@ class AdditionalService(db.Model):
             'price': self.price,
             'unit': self.unit,
             'order': self.order,
-            'is_active': self.is_active
+            'is_active': self.is_active,
+            'created_at': self.created_at.isoformat() if self.created_at else None,
+            'updated_at': self.updated_at.isoformat() if self.updated_at else None
         }
     
     def __repr__(self):
