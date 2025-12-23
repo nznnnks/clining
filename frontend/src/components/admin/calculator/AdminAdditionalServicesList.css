@@ -1,0 +1,202 @@
+.admin-additional-services-list {
+  width: 100%;
+}
+
+.admin-additional-services-list__actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+.admin-additional-services-list__left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.admin-additional-services-list__count {
+  color: var(--text-secondary);
+  font-size: 0.95rem;
+  margin-right: 5px;
+}
+
+.admin-additional-services-list__createBtn,
+.admin-additional-services-list__filterBtn {
+  padding: 8px 16px;
+  background-color: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  color: var(--text-primary);
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-family: inherit;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  text-decoration: none;
+}
+
+.admin-additional-services-list__createBtn {
+  background-color: var(--accent-primary);
+  border-color: var(--accent-primary);
+  color: var(--text-primary);
+}
+
+.admin-additional-services-list__createBtn:hover {
+  background-color: #e55a2b;
+  transform: translateY(-2px);
+}
+
+.admin-additional-services-list__filterBtn:hover {
+  background-color: var(--bg-tertiary);
+  border-color: var(--accent-primary);
+}
+
+.admin-additional-services-list__arrow {
+  font-size: 0.7rem;
+}
+
+.admin-additional-services-list__search {
+  flex: 1;
+  min-width: 250px;
+}
+
+.admin-additional-services-list__searchInput {
+  width: 100%;
+  padding: 8px 16px;
+  background-color: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  color: var(--text-primary);
+  font-size: 0.9rem;
+  font-family: inherit;
+}
+
+.admin-additional-services-list__searchInput:focus {
+  outline: none;
+  border-color: var(--accent-primary);
+  box-shadow: 0 0 0 2px rgba(255, 87, 34, 0.1);
+}
+
+.admin-additional-services-list__searchInput::placeholder {
+  color: var(--text-secondary);
+  opacity: 0.6;
+}
+
+.admin-additional-services-list__tableWrapper {
+  overflow-x: auto;
+  background-color: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  padding: 0;
+}
+
+.admin-additional-services-list__table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+}
+
+.admin-additional-services-list__table thead {
+  background-color: var(--bg-tertiary);
+}
+
+.admin-additional-services-list__table th {
+  padding: 15px 12px;
+  text-align: left;
+  color: var(--text-primary);
+  font-weight: 600;
+  border-bottom: 2px solid var(--border-color);
+  white-space: nowrap;
+}
+
+.admin-additional-services-list__table td {
+  padding: 15px 12px;
+  color: var(--text-secondary);
+  border-bottom: 1px solid var(--border-color);
+}
+
+.admin-additional-services-list__table tbody tr:hover {
+  background-color: var(--bg-tertiary);
+}
+
+.admin-additional-services-list__table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.admin-additional-services-list__actionsCell {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.admin-additional-services-list__editBtn,
+.admin-additional-services-list__deleteBtn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1.1rem;
+  padding: 5px;
+  transition: transform 0.2s ease;
+  line-height: 1;
+}
+
+.admin-additional-services-list__editBtn:hover,
+.admin-additional-services-list__deleteBtn:hover {
+  transform: scale(1.2);
+}
+
+.admin-additional-services-list__activeBtn {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: 2px solid var(--border-color);
+  background-color: transparent;
+  color: var(--text-secondary);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  transition: all 0.3s ease;
+  font-family: inherit;
+  padding: 0;
+}
+
+.admin-additional-services-list__activeBtn:hover {
+  border-color: var(--accent-primary);
+}
+
+.admin-additional-services-list__activeBtn--active {
+  background-color: var(--accent-primary);
+  border-color: var(--accent-primary);
+  color: var(--text-primary);
+}
+
+@media (max-width: 768px) {
+  .admin-additional-services-list__actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .admin-additional-services-list__left {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .admin-additional-services-list__createBtn,
+  .admin-additional-services-list__filterBtn {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .admin-additional-services-list__search {
+    width: 100%;
+  }
+}
+

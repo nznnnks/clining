@@ -1,0 +1,35 @@
+.admin-cleaning-types {
+  width: 100%;
+}
+
+.admin-cleaning-types__header {
+  margin-bottom: 30px;
+}
+
+.admin-cleaning-types__tabs {
+  display: flex;
+  gap: 0;
+  border-bottom: 2px solid var(--border-color);
+}
+
+.admin-cleaning-types__tab {
+  padding: 12px 24px;
+  color: var(--text-secondary);
+  text-decoration: none;
+  font-size: 1rem;
+  font-weight: 500;
+  border-bottom: 3px solid transparent;
+  transition: all 0.3s ease;
+  margin-bottom: -2px;
+}
+
+.admin-cleaning-types__tab:hover {
+  color: var(--text-primary);
+  background-color: var(--bg-secondary);
+}
+
+.admin-cleaning-types__tab--active {
+  color: var(--accent-primary);
+  border-bottom-color: var(--accent-primary);
+}
+
