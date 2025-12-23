@@ -1,0 +1,206 @@
+.admin-portfolio-form {
+  width: 100%;
+  max-width: 800px;
+}
+
+.admin-portfolio-form__form {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+
+.admin-portfolio-form__field {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.admin-portfolio-form__label {
+  font-weight: 600;
+  color: var(--text-primary);
+  font-size: 0.95rem;
+}
+
+.admin-portfolio-form__required {
+  color: #f44336;
+}
+
+.admin-portfolio-form__input,
+.admin-portfolio-form__textarea {
+  background-color: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 12px 16px;
+  font-size: 0.95rem;
+  color: var(--text-primary);
+  font-family: inherit;
+  transition: all 0.3s ease;
+  resize: vertical;
+}
+
+.admin-portfolio-form__input:focus,
+.admin-portfolio-form__textarea:focus {
+  outline: none;
+  border-color: var(--accent-primary);
+  box-shadow: 0 0 0 2px rgba(255, 87, 34, 0.1);
+}
+
+.admin-portfolio-form__textarea {
+  min-height: 100px;
+  font-family: 'Courier New', monospace;
+  font-size: 0.9rem;
+}
+
+.admin-portfolio-form__photoBtn {
+  padding: 10px 20px;
+  background-color: var(--accent-primary);
+  border: none;
+  border-radius: 8px;
+  color: var(--text-primary);
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-family: inherit;
+  font-size: 0.9rem;
+  align-self: flex-start;
+}
+
+.admin-portfolio-form__photoBtn:hover {
+  background-color: #e55a2b;
+  transform: translateY(-2px);
+}
+
+.admin-portfolio-form__worksInput {
+  display: flex;
+  gap: 10px;
+}
+
+.admin-portfolio-form__worksInput .admin-portfolio-form__input {
+  flex: 1;
+}
+
+.admin-portfolio-form__addBtn {
+  padding: 12px 20px;
+  background-color: var(--bg-tertiary);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  color: var(--text-primary);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-family: inherit;
+  font-weight: 600;
+}
+
+.admin-portfolio-form__addBtn:hover {
+  background-color: var(--accent-primary);
+  border-color: var(--accent-primary);
+}
+
+.admin-portfolio-form__worksList {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.admin-portfolio-form__workItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 15px;
+  background-color: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  color: var(--text-primary);
+}
+
+.admin-portfolio-form__removeBtn {
+  background: none;
+  border: none;
+  color: #f44336;
+  font-size: 1.5rem;
+  cursor: pointer;
+  padding: 0;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+  transition: transform 0.2s ease;
+}
+
+.admin-portfolio-form__removeBtn:hover {
+  transform: scale(1.2);
+}
+
+.admin-portfolio-form__actions {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-top: 20px;
+  padding-top: 20px;
+  border-top: 1px solid var(--border-color);
+}
+
+.admin-portfolio-form__saveBtn,
+.admin-portfolio-form__saveAnotherBtn,
+.admin-portfolio-form__saveContinueBtn,
+.admin-portfolio-form__cancelBtn {
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-family: inherit;
+  border: none;
+}
+
+.admin-portfolio-form__saveBtn {
+  background-color: var(--accent-primary);
+  color: var(--text-primary);
+}
+
+.admin-portfolio-form__saveBtn:hover {
+  background-color: #e55a2b;
+  transform: translateY(-2px);
+}
+
+.admin-portfolio-form__saveAnotherBtn,
+.admin-portfolio-form__saveContinueBtn {
+  background-color: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  color: var(--text-primary);
+}
+
+.admin-portfolio-form__saveAnotherBtn:hover,
+.admin-portfolio-form__saveContinueBtn:hover {
+  background-color: var(--bg-tertiary);
+  border-color: var(--accent-primary);
+}
+
+.admin-portfolio-form__cancelBtn {
+  background-color: rgba(211, 47, 47, 0.1);
+  border: 1px solid rgba(211, 47, 47, 0.3);
+  color: #f44336;
+}
+
+.admin-portfolio-form__cancelBtn:hover {
+  background-color: rgba(211, 47, 47, 0.2);
+  border-color: rgba(211, 47, 47, 0.5);
+}
+
+@media (max-width: 768px) {
+  .admin-portfolio-form__actions {
+    flex-direction: column;
+  }
+
+  .admin-portfolio-form__saveBtn,
+  .admin-portfolio-form__saveAnotherBtn,
+  .admin-portfolio-form__saveContinueBtn,
+  .admin-portfolio-form__cancelBtn {
+    width: 100%;
+  }
+}
+

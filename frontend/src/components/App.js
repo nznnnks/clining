@@ -19,17 +19,18 @@ import CalculatorPage from './pages/CalculatorPage';
 import VacanciesPage from './pages/VacanciesPage';
 import MoscowRegionPage from './pages/MoscowRegionPage';
 import PaymentTermsPage from './pages/PaymentTermsPage';
-import AdminDashboard from './pages/admin/AdminDashboard';
 import AdminLoginPage from './pages/admin/AdminLoginPage';
+import AdminDashboard from './pages/admin/AdminDashboard';
 import './App.css';
 
 function AppContent() {
   const location = useLocation();
   const showFooter = location.pathname !== '/contacts';
-  const isAdminPage = location.pathname.startsWith('/admin');
+  const isAdminRoute = location.pathname.startsWith('/admin');
 
   // Обработка якорей при загрузке страницы
   useEffect(() => {
+    if (isAdminRoute) return;
     const hash = window.location.hash;
     if (hash) {
       const anchorId = hash.substring(1);
@@ -46,17 +47,15 @@ function AppContent() {
         }
       }, 100);
     }
-  }, [location]);
+  }, [location, isAdminRoute]);
 
-  // Если это страница админ-панели, не показываем Header, Footer и ContactButtons
-  if (isAdminPage) {
+  // Админ-панель без Header и Footer
+  if (isAdminRoute) {
     return (
-      <div className="App">
-        <Routes>
-          <Route path="/admin/login" element={<AdminLoginPage />} />
-          <Route path="/admin/*" element={<AdminDashboard />} />
-        </Routes>
-      </div>
+      <Routes>
+        <Route path="/admin/login" element={<AdminLoginPage />} />
+        <Route path="/admin/*" element={<AdminDashboard />} />
+      </Routes>
     );
   }
 

@@ -1,0 +1,195 @@
+/* Используем стили из AdminPromotionsList как основу */
+.admin-users-list {
+  padding: 20px;
+}
+
+.admin-users-list__loading,
+.admin-users-list__error {
+  text-align: center;
+  padding: 40px;
+  color: var(--text-secondary);
+}
+
+.admin-users-list__error {
+  color: #ff4444;
+}
+
+.admin-users-list__actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+.admin-users-list__left {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.admin-users-list__count {
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.admin-users-list__createBtn {
+  padding: 10px 20px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  text-decoration: none;
+  border-radius: 8px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.admin-users-list__createBtn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+}
+
+.admin-users-list__filterBtn {
+  padding: 10px 20px;
+  background: var(--bg-tertiary);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  color: var(--text-primary);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.admin-users-list__search {
+  flex: 1;
+  max-width: 400px;
+}
+
+.admin-users-list__searchInput {
+  width: 100%;
+  padding: 10px 15px;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  background: var(--bg-secondary);
+  color: var(--text-primary);
+  font-size: 14px;
+}
+
+.admin-users-list__tableWrapper {
+  overflow-x: auto;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  background: var(--bg-secondary);
+}
+
+.admin-users-list__table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.admin-users-list__table thead {
+  background: var(--bg-tertiary);
+}
+
+.admin-users-list__table th {
+  padding: 15px;
+  text-align: left;
+  font-weight: 600;
+  color: var(--text-primary);
+  border-bottom: 2px solid var(--border-color);
+}
+
+.admin-users-list__table td {
+  padding: 15px;
+  border-bottom: 1px solid var(--border-color);
+  color: var(--text-primary);
+}
+
+.admin-users-list__table tbody tr:hover {
+  background: var(--bg-tertiary);
+}
+
+.admin-users-list__actionsCell {
+  display: flex;
+  gap: 10px;
+}
+
+.admin-users-list__editBtn,
+.admin-users-list__deleteBtn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 18px;
+  padding: 5px;
+  transition: transform 0.2s ease;
+}
+
+.admin-users-list__editBtn:hover,
+.admin-users-list__deleteBtn:hover {
+  transform: scale(1.2);
+}
+
+.admin-users-list__dateFilter {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  margin-top: 5px;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 15px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  z-index: 1000;
+  min-width: 400px;
+}
+
+.admin-users-list__dateFilterRow {
+  display: flex;
+  gap: 15px;
+  align-items: flex-end;
+  flex-wrap: wrap;
+}
+
+.admin-users-list__dateFilterRow label {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  color: var(--text-primary);
+  font-size: 0.9rem;
+}
+
+.admin-users-list__dateInput {
+  padding: 8px 12px;
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  font-size: 0.9rem;
+  font-family: inherit;
+}
+
+.admin-users-list__dateInput:focus {
+  outline: none;
+  border-color: #667eea;
+  box-shadow: 0 0 0 2px rgba(102, 126, 234, 0.1);
+}
+
+.admin-users-list__resetFilterBtn {
+  padding: 8px 16px;
+  background: var(--bg-tertiary);
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  color: var(--text-primary);
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-family: inherit;
+  white-space: nowrap;
+}
+
+.admin-users-list__resetFilterBtn:hover {
+  background: var(--bg-primary);
+  border-color: #667eea;
+}
+

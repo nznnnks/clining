@@ -21,7 +21,7 @@ const PromotionsPage = () => {
         </div>
       </section>
 
-      <Promotions />
+      <Promotions showAll={true} mode="grid" />
     </div>
   );
 };

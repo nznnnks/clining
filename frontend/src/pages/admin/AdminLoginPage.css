@@ -1,0 +1,122 @@
+.admin-login {
+  min-height: 100vh;
+  background: linear-gradient(135deg, var(--bg-primary) 0%, var(--bg-secondary) 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.admin-login__container {
+  background: var(--bg-secondary);
+  border-radius: 25px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+  padding: 50px;
+  width: 100%;
+  max-width: 450px;
+  border: 1px solid var(--border-color);
+}
+
+.admin-login__header {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.admin-login__title {
+  color: var(--text-primary);
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+
+.admin-login__subtitle {
+  color: var(--text-secondary);
+  font-size: 1rem;
+}
+
+.admin-login__form {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+
+.admin-login__formGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.admin-login__label {
+  font-weight: 600;
+  color: var(--text-primary);
+  font-size: 0.95rem;
+}
+
+.admin-login__input {
+  background-color: var(--bg-primary);
+  border: 2px solid var(--border-color);
+  border-radius: 12px;
+  padding: 14px 18px;
+  font-size: 16px;
+  color: var(--text-primary);
+  transition: all 0.3s ease;
+  font-family: inherit;
+}
+
+.admin-login__input:focus {
+  border-color: var(--accent-primary);
+  box-shadow: 0 0 0 3px rgba(255, 87, 34, 0.1);
+  outline: none;
+}
+
+.admin-login__input::placeholder {
+  color: var(--text-secondary);
+  opacity: 0.6;
+}
+
+.admin-login__button {
+  width: 100%;
+  background: linear-gradient(135deg, var(--accent-primary) 0%, #e55a2b 100%);
+  border: none;
+  border-radius: 12px;
+  padding: 16px;
+  color: var(--text-primary);
+  font-weight: 600;
+  font-size: 16px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-top: 10px;
+}
+
+.admin-login__button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(255, 87, 34, 0.4);
+}
+
+.admin-login__button:active {
+  transform: translateY(0);
+}
+
+.admin-login__alert {
+  border-radius: 12px;
+  margin-bottom: 25px;
+  padding: 14px 18px;
+  font-size: 0.95rem;
+}
+
+.admin-login__alert--error {
+  background-color: rgba(211, 47, 47, 0.1);
+  border: 1px solid rgba(211, 47, 47, 0.3);
+  color: #f44336;
+}
+
+@media (max-width: 480px) {
+  .admin-login__container {
+    padding: 35px 25px;
+  }
+
+  .admin-login__title {
+    font-size: 1.75rem;
+  }
+}
+

@@ -12,6 +12,7 @@ const CalculatorPage = () => {
   const [additionalServices, setAdditionalServices] = useState({});
   const [name, setName] = useState('');
   const [phone, setPhone] = useState('');
+  const [phoneError, setPhoneError] = useState('');
   const [comment, setComment] = useState('');
   const [cleaningTypes, setCleaningTypes] = useState([]);
   const [additionalServicesList, setAdditionalServicesList] = useState([]);
@@ -137,14 +138,92 @@ const CalculatorPage = () => {
     });
   };
 
+  const formatPhoneNumber = (value) => {
+    // Удаляем все нецифровые символы кроме +
+    let cleaned = value.replace(/[^\d+]/g, '');
+    
+    // Если номер не начинается с +7, добавляем +7
+    if (!cleaned.startsWith('+7')) {
+      if (cleaned.startsWith('7')) {
+        cleaned = '+' + cleaned;
+      } else if (cleaned.startsWith('8')) {
+        cleaned = '+7' + cleaned.substring(1);
+      } else if (!cleaned.startsWith('+')) {
+        cleaned = '+7' + cleaned;
+      }
+    }
+    
+    // Ограничиваем длину до 12 символов (включая +), т.е. +7 и 10 цифр
+    if (cleaned.length > 12) {
+      cleaned = cleaned.substring(0, 12);
+    }
+    
+    // Форматируем номер: +7 xxx xxx xx xx
+    if (cleaned.length > 2) {
+      const digits = cleaned.substring(2); // Все цифры после +7
+      let formatted = '+7';
+      
+      if (digits.length > 0) {
+        formatted += ' ' + digits.substring(0, 3);
+      }
+      if (digits.length > 3) {
+        formatted += ' ' + digits.substring(3, 6);
+      }
+      if (digits.length > 6) {
+        formatted += ' ' + digits.substring(6, 8);
+      }
+      if (digits.length > 8) {
+        formatted += ' ' + digits.substring(8, 10);
+      }
+      
+      return formatted;
+    }
+    
+    return cleaned;
+  };
+
+  const handlePhoneChange = (e) => {
+    const inputValue = e.target.value;
+    const formatted = formatPhoneNumber(inputValue);
+    setPhone(formatted);
+    
+    // Валидация: проверяем формат только если номер полностью введен
+    // Форматированный номер будет длиной 17 символов: +7 xxx xxx xx xx
+    if (formatted.length === 17) {
+      const isValid = validatePhone(formatted);
+      if (!isValid) {
+        setPhoneError('Номер телефона должен быть в формате +7 xxx xxx xx xx');
+      } else {
+        setPhoneError('');
+      }
+    } else {
+      // Очищаем ошибку во время ввода (номер еще не полный)
+      setPhoneError('');
+    }
+  };
+
+  const validatePhone = (phoneNumber) => {
+    // Проверяем формат: +7 xxx xxx xx xx (17 символов с пробелами)
+    // Регулярное выражение: +7, пробел, 3 цифры, пробел, 3 цифры, пробел, 2 цифры, пробел, 2 цифры
+    return /^\+7 \d{3} \d{3} \d{2} \d{2}$/.test(phoneNumber);
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     
     // Проверяем обязательные поля
     if (!phone.trim()) {
-      alert('Пожалуйста, укажите номер телефона');
+      setPhoneError('Пожалуйста, укажите номер телефона');
       return;
     }
+    
+    // Валидация формата телефона
+    if (!validatePhone(phone)) {
+      setPhoneError('Номер телефона должен быть в формате +7 xxx xxx xx xx');
+      return;
+    }
+    
+    setPhoneError('');
     
     try {
       // Отправляем данные на сервер
@@ -174,6 +253,7 @@ const CalculatorPage = () => {
         // Очищаем форму
         setName('');
         setPhone('');
+        setPhoneError('');
         setComment('');
         setAdditionalServices({});
       } else {
@@ -305,14 +385,35 @@ const CalculatorPage = () => {
                     value={name}
                     onChange={(e) => setName(e.target.value)}
                   />
-                  <input
-                    type="tel"
-                    className="calculator-page__orderInput"
-                    placeholder="Ваш номер телефона*"
-                    value={phone}
-                    onChange={(e) => setPhone(e.target.value)}
-                    required
-                  />
+                  <div style={{ width: '100%' }}>
+                    <input
+                      type="tel"
+                      className={`calculator-page__orderInput ${phoneError ? 'calculator-page__orderInput--error' : ''}`}
+                      placeholder="Номер телефона"
+                      value={phone}
+                      onChange={handlePhoneChange}
+                      onBlur={() => {
+                        // При потере фокуса проверяем и форматируем номер
+                        if (phone && !validatePhone(phone)) {
+                          setPhoneError('Номер телефона должен быть в формате +7 xxx xxx xx xx');
+                        } else if (phone && validatePhone(phone)) {
+                          setPhoneError('');
+                        }
+                      }}
+                      required
+                      maxLength={17} // +7 xxx xxx xx xx = 17 символов
+                    />
+                    {phoneError && (
+                      <div style={{ 
+                        color: '#ff6b6b', 
+                        fontSize: '0.875rem', 
+                        marginTop: '0.5rem',
+                        textAlign: 'left'
+                      }}>
+                        {phoneError}
+                      </div>
+                    )}
+                  </div>
                   <textarea
                     className="calculator-page__orderTextarea"
                     placeholder="Комментарий к заказу"

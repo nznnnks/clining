@@ -1,0 +1,134 @@
+/* Используем стили из AdminPromotionsForm как основу */
+.admin-users-form {
+  padding: 20px;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.admin-users-form__loading {
+  text-align: center;
+  padding: 40px;
+  color: var(--text-secondary);
+}
+
+.admin-users-form__error {
+  background: #ff4444;
+  color: white;
+  padding: 15px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+}
+
+.admin-users-form__form {
+  background: var(--bg-secondary);
+  padding: 30px;
+  border-radius: 12px;
+  border: 1px solid var(--border-color);
+}
+
+.admin-users-form__field {
+  margin-bottom: 25px;
+}
+
+.admin-users-form__label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.admin-users-form__required {
+  color: #ff4444;
+}
+
+.admin-users-form__hint {
+  font-size: 0.9em;
+  color: var(--text-secondary);
+  font-weight: normal;
+}
+
+.admin-users-form__input {
+  width: 100%;
+  padding: 12px 15px;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  font-size: 14px;
+  font-family: inherit;
+  box-sizing: border-box;
+}
+
+.admin-users-form__input:focus {
+  outline: none;
+  border-color: #667eea;
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+.admin-users-form__checkboxLabel {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.admin-users-form__checkbox {
+  width: 20px;
+  height: 20px;
+  margin-right: 10px;
+  cursor: pointer;
+}
+
+.admin-users-form__checkboxText {
+  color: var(--text-primary);
+  font-size: 14px;
+}
+
+.admin-users-form__actions {
+  display: flex;
+  gap: 15px;
+  margin-top: 30px;
+  padding-top: 20px;
+  border-top: 1px solid var(--border-color);
+}
+
+.admin-users-form__saveBtn {
+  padding: 12px 30px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.admin-users-form__saveBtn:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+}
+
+.admin-users-form__saveBtn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.admin-users-form__cancelBtn {
+  padding: 12px 30px;
+  background: var(--bg-tertiary);
+  color: var(--text-primary);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.admin-users-form__cancelBtn:hover:not(:disabled) {
+  background: var(--bg-primary);
+}
+
+.admin-users-form__cancelBtn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+

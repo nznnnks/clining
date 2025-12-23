@@ -108,6 +108,21 @@
   pointer-events: auto;
 }
 
+.promotions__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 30px;
+  margin-bottom: 30px;
+}
+
+.promotions__card--grid {
+  min-width: auto;
+  width: 100%;
+  opacity: 1;
+  pointer-events: auto;
+  position: relative;
+}
+
 .promotions__cardImage {
   font-size: 60px;
   text-align: right;
@@ -212,6 +227,11 @@
 
   .promotions__title {
     font-size: 2rem;
+  }
+
+  .promotions__grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
   }
 
   .promotions__arrow {
